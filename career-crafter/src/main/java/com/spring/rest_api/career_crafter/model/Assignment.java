@@ -10,7 +10,7 @@ public class Assignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int assignmentId;
+    private int assignmentId; //id
 
     @ManyToOne
     @JoinColumn(name = "course_module_id", nullable = false)
