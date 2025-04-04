@@ -9,28 +9,27 @@ public class CourseContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int contentId;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "course_module_id", nullable = false)
+    //@JoinColumn(name = "course_module_id", nullable = false)
     private CourseModule courseModule;
 
     
-    @Column(nullable = false)
-    private String contentType;
-
+    
     @Column(nullable = false)
     private String contentTitle;
 
     @Column(nullable = false)
     private String contentUrl;
 
-	public int getContentId() {
-		return contentId;
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public CourseModule getCourseModule() {
@@ -41,13 +40,6 @@ public class CourseContent {
 		this.courseModule = courseModule;
 	}
 
-	public String getContentType() {
-		return contentType;
-	}
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
 
 	public String getContentTitle() {
 		return contentTitle;

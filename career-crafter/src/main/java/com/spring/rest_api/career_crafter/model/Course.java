@@ -10,7 +10,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseId;
+    private int id;
 
     @Column(nullable = false)
     private String title;
@@ -23,26 +23,33 @@ public class Course {
     private String aboutTheCourse;
     @Column(nullable = false)
     private String difficultyLevel;
+    
+  
     @Column(nullable = false)
-    private Double price;
-    @Column(nullable = false)
-    private String certificateAvailable;
-
-	// private boolean isEnrolled = false;
-
-    @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
-    @ManyToOne
-    @JoinColumn(name = "instructor_id", nullable = false)
-    private Instructor instructor;
-
-	public int getCourseId() {
-		return courseId;
+    public boolean isEnrolled() {
+		return isEnrolled;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setEnrolled(boolean isEnrolled) {
+		this.isEnrolled = isEnrolled;
+	}
+
+	private boolean isEnrolled=false;
+    @ManyToOne
+   // @JoinColumn(name = "instructor_id", nullable = false)
+    private Instructor instructor;
+    
+@ManyToOne
+//jobseeeker?//getters and setters
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -85,21 +92,7 @@ public class Course {
 		this.difficultyLevel = difficultyLevel;
 	}
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public String getCertificateAvailable() {
-		return certificateAvailable;
-	}
-
-	public void setCertificateAvailable(String certificateAvailable) {
-		this.certificateAvailable = certificateAvailable;
-	}
+	
 
 	public Date getCreatedAt() {
 		return createdAt;

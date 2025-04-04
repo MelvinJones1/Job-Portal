@@ -10,14 +10,14 @@ public class EnrolledUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int enrollmentId;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    //@JoinColumn(name = "user_id", nullable = false)
+    private Instructor instructor;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    //@JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @Column(nullable = false)
@@ -26,20 +26,20 @@ public class EnrolledUser {
     @Column(nullable = false, updatable = false)
     private Date enrolledDate = new Date();
 
-	public int getEnrollmentId() {
-		return enrollmentId;
+	public int getId() {
+		return id;
 	}
 
-	public void setEnrollmentId(int enrollmentId) {
-		this.enrollmentId = enrollmentId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Instructor getInstructor() {
+		return instructor;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
 	}
 
 	public Course getCourse() {
@@ -65,5 +65,11 @@ public class EnrolledUser {
 	public void setEnrolledDate(Date enrolledDate) {
 		this.enrolledDate = enrolledDate;
 	}
+
+	
+
+	
+
+	
 
 }

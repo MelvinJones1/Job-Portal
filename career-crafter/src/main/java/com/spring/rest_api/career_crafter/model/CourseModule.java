@@ -9,25 +9,28 @@ public class CourseModule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseModuleId;
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    //@JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "module_id", nullable = false)
+   // @JoinColumn(name = "module_id", nullable = false)
     private Module module;
 
     @Column(nullable = false)
-    private int position;
+    private int title;
 
-	public int getCourseModuleId() {
-		return courseModuleId;
+    @Column(nullable = false)
+    private String url;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setCourseModuleId(int courseModuleId) {
-		this.courseModuleId = courseModuleId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Course getCourse() {
@@ -46,11 +49,20 @@ public class CourseModule {
 		this.module = module;
 	}
 
-	public int getPosition() {
-		return position;
+	public int getTitle() {
+		return title;
 	}
 
-	public void setPosition(int position) {
-		this.position = position;
+	public void setTitle(int title) {
+		this.title = title;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 }

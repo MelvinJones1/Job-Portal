@@ -2,61 +2,118 @@ package com.spring.rest_api.career_crafter.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "instructors")
+@Table(name = "users")
 public class Instructor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int instructorId;
+    private int userId;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
-    @Column( nullable = false)
+    private String middleName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    private String passwordHash;
+    private Date dob;
+
+    @Column(nullable=false)
+    private String mobileNumber;
+
+    private String highestQualification;
 
     @Column(nullable = false)
-    private String createdAt;
+    private String address;
 
-    // Getters and Setters
-    public int getInstructorId() {
-        return instructorId;
-    }
+    @Column(nullable = false)
+    private Date createdAt = new Date();
 
-    public void setInstructorId(int instructorId) {
-        this.instructorId = instructorId;
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getMiddleName() {
+		return middleName;
+	}
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getHighestQualification() {
+		return highestQualification;
+	}
+
+	public void setHighestQualification(String highestQualification) {
+		this.highestQualification = highestQualification;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
 }
