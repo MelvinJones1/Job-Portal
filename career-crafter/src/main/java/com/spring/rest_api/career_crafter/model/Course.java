@@ -28,6 +28,8 @@ public class Course {
     @Column(nullable = false)
     private String certificateAvailable;
 
+	// private boolean isEnrolled = false;
+
     @Column(nullable = false, updatable = false)
     private Date createdAt = new Date();
 
