@@ -20,7 +20,7 @@ public class CourseReview {
 	private int rating;
 	
 	@Column(nullable = false)
-	private int reviewText;
+	private String reviewText;
 	
 	private LocalDate datePosted;
 	
@@ -55,11 +55,13 @@ public class CourseReview {
 		this.rating = rating;
 	}
 
-	public int getReviewText() {
+	
+
+	public String getReviewText() {
 		return reviewText;
 	}
 
-	public void setReviewText(int reviewText) {
+	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
 
