@@ -2,7 +2,6 @@ package com.spring.rest_api.career_crafter.config;
 
 import java.io.IOException;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +10,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.spring.rest_api.career_crafter.config.JwtUtil;
 import com.spring.rest_api.career_crafter.service.MyUserService;
 
 import jakarta.servlet.FilterChain;
@@ -19,7 +17,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
+/*
+ * This class will override a method that will act as Filter.
+ * 
+ * OncePerRequestFilter; Every time a request for an API comes IN, Spring must
+ * make it go thru this filter  
+ * */
 @Component
 public class JwtFilter extends OncePerRequestFilter{
 
