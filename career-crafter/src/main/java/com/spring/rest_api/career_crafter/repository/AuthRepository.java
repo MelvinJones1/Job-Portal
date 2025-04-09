@@ -9,4 +9,5 @@ import com.spring.rest_api.career_crafter.model.User;
 public interface AuthRepository extends JpaRepository<User, Integer>{
 
 	User findByUsername(String username); 
+	
 }

@@ -13,7 +13,9 @@ public class Instructor {
     private int id;
 
     @Column(nullable = false)
-    private String fullName;
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false)
     private String email;
@@ -24,13 +26,33 @@ public class Instructor {
 
     @Column(nullable = false)
     private String highestQualification;
+    private String certifications;
+    public String getFirstName() {
+		return firstName;
+	}
 
-    @Column(nullable = false)
-    private String address;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    @Column(nullable = false)
-    private LocalDate createdAt;
-    
+	public String getCertifications() {
+		return certifications;
+	}
+
+	public void setCertifications(String certifications) {
+		this.certifications = certifications;
+	}
+
+	public String getProfileImagePath() {
+		return profileImagePath;
+	}
+
+	public void setProfileImagePath(String profileImagePath) {
+		this.profileImagePath = profileImagePath;
+	}
+
+	@Column(nullable = false)
+    private String profileImagePath;
 	@OneToOne
 	private User user;
 
@@ -42,12 +64,30 @@ public class Instructor {
 		this.id = id;
 	}
 
-	public String getFullName() {
-		return fullName;
+	
+
+	public String getFirsName() {
+		return firstName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFirsName(String firsName) {
+		this.firstName = firsName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getEmail() {
@@ -74,20 +114,5 @@ public class Instructor {
 		this.highestQualification = highestQualification;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
 
 }

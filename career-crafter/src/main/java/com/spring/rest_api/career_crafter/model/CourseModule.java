@@ -20,7 +20,7 @@ public class CourseModule {
 
 
     @Column(nullable = false)
-    private int title;
+    private String title;
 
     @Column(nullable = false)
     private String url;
@@ -42,11 +42,13 @@ public class CourseModule {
 	}
 
 
-	public int getTitle() {
+	
+
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(int title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
