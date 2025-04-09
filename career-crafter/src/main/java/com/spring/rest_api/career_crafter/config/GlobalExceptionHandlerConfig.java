@@ -1,26 +1,19 @@
 package com.spring.rest_api.career_crafter.config;
 
-import java.io.IOException;
 
+import java.io.IOException;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.spring.rest_api.career_crafter.exception.*;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandlerConfig {
 
-	 @ExceptionHandler(InvalidIDException.class)
-	 public ErrorResponse invalidIDExceptionHandler(InvalidIDException e) {
-		 return ErrorResponse.create
-				 			(e, 
-				 			HttpStatusCode.valueOf(400), 
-				 			e.getMessage()); 
-	 }
-	 
+	
 	 @ExceptionHandler(InvalidUsernameException.class)
 	 public ErrorResponse invalidUsernameExceptionHandler(InvalidUsernameException e) {
 		 return ErrorResponse.create

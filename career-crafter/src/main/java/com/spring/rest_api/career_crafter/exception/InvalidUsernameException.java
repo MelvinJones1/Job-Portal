@@ -1,6 +1,5 @@
 package com.spring.rest_api.career_crafter.exception;
 
-
 public class InvalidUsernameException extends Exception{
 
 	private static final long serialVersionUID = 1L;
@@ -19,4 +18,3 @@ public class InvalidUsernameException extends Exception{
 		return message;
 	}
 }
-

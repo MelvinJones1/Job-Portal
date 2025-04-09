@@ -2,7 +2,6 @@ package com.spring.rest_api.career_crafter.controller;
 
 import java.security.Principal;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.rest_api.career_crafter.config.JwtUtil;
-import com.spring.rest_api.career_crafter.service.AuthService;
-import com.spring.rest_api.career_crafter.service.MyUserService;
 import com.spring.rest_api.career_crafter.dto.TokenDto;
 import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.User;
+import com.spring.rest_api.career_crafter.service.AuthService;
+import com.spring.rest_api.career_crafter.service.MyUserService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,7 +32,7 @@ public class AuthController {
 	private MyUserService myUserService;
 	@Autowired
 	private JwtUtil jwtUtil;
-
+	
 	@PostMapping("/signup")
 	public User signUp(@RequestBody User user) throws InvalidUsernameException {
 		return authService.signUp(user);
@@ -74,5 +73,3 @@ public class AuthController {
 		return myUserService.loadUserByUsername(username);
 	}
 }
-
-
