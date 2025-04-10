@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -65,15 +64,7 @@ public class User implements UserDetails{
 	public void setRole(String role) {
 		this.role = role;
 	}
-@OneToOne
-private Instructor instructor;
-	public Instructor getInstructor() {
-	return instructor;
-}
 
-public void setInstructor(Instructor instructor) {
-	this.instructor = instructor;
-}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

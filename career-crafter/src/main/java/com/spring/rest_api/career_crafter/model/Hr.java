@@ -1,5 +1,7 @@
 package com.spring.rest_api.career_crafter.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +17,11 @@ public class Hr {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false)
     private String name;
@@ -30,13 +30,35 @@ public class Hr {
     private Company company; // HR belongs to a company
     
 	@OneToOne
-	private User user;
+	private User user; //HR linked to authentication
+	
+	
+	@Column(nullable = false)
+    private LocalDate createdAt;
+	
+	
 
-	public Long getId() {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -46,14 +68,6 @@ public class Hr {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getName() {

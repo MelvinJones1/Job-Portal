@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.spring.rest_api.career_crafter.model.Course;
 
-import com.spring.rest_api.career_crafter.repository.AuthRepository;
 import com.spring.rest_api.career_crafter.repository.CourseRepository;
 
 
@@ -23,8 +22,8 @@ public class CourseService {
 	private CourseRepository courseRepository;
 	
 
-	@Autowired
-	private AuthRepository authRepository;
+//	@Autowired
+//	private AuthRepository authRepository;
 	
 	
 	public Course addCourse(Course course) {
@@ -34,8 +33,7 @@ public class CourseService {
 	public List<Course> getAllCourses() {
         return courseRepository.findAll(); // Built-in method
     }
-	
-	
+
 	
 	
 	public Course getSingleCourse(int cId) {

@@ -37,11 +37,7 @@ public class Course {
 
     private boolean isEnrolled = false;
 
-    @ManyToOne
-    private CourseCategory courseCategory;
-
-    @ManyToOne
-    private Instructor instructor;
+    
 
     // --- Getters and Setters ---
     public Course(String title, String description, String aboutTheCourse,
@@ -51,8 +47,7 @@ public class Course {
   this.aboutTheCourse = aboutTheCourse;
   this.difficultyLevel = difficultyLevel;
   this.createdAt = LocalDate.now(); // set default creation date
-  this.courseCategory = courseCategory;
-  this.instructor = instructor;
+  
 }
 
     public int getId() {
@@ -111,19 +106,5 @@ public class Course {
         this.isEnrolled = isEnrolled;
     }
 
-    public Instructor getInstructor() {
-        return instructor;
-    }
-
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
-    }
-
-    public CourseCategory getCourseCategory() {
-        return courseCategory;
-    }
-
-    public void setCourseCategory(CourseCategory courseCategory) {
-        this.courseCategory = courseCategory;
-    }
+   
 }

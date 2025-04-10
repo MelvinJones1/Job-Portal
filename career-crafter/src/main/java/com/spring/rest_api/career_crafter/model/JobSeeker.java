@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name =  "job_seeker")
 public class JobSeeker {
 
 	@Id
@@ -20,9 +22,6 @@ public class JobSeeker {
 	
 	@Column(nullable = false)
 	private String email;
-	
-	@Column(nullable = false)
-	private String password;
 	
 	private String location;
 	
@@ -86,13 +85,7 @@ public class JobSeeker {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 
 	public String getLocation() {
 		return location;
