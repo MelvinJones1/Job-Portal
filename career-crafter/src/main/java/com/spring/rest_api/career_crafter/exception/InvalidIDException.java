@@ -3,7 +3,7 @@ public class InvalidIDException extends Exception{
 
 	private static final long serialVersionUID = 1L;
 
-	private String message;
+	private String message; 
 	
 	
 	public InvalidIDException(String message) {
