@@ -25,6 +25,12 @@ public class HrService {
 		
 		
 	}
+
+	public Hr addHr(Hr hr) {
+		
+		
+		return hrRepository.save(hr);
+	}
 	
 	
 
