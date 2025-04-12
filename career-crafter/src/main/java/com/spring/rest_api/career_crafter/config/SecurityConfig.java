@@ -36,13 +36,13 @@ public class SecurityConfig {
 				.requestMatchers("/api/auth/signup").permitAll()
 				.requestMatchers("/api/auth/login").authenticated()
 				.requestMatchers("/api/job/all").permitAll()
-				.requestMatchers("/api/company/add").hasAuthority("HR")
-				.requestMatchers("/api/course/add").hasAuthority("INSTRUCTOR")
-				.requestMatchers("/api/instructor/profile/createprofile").hasAuthority("INSTRUCTOR")
-				.requestMatchers("/api/job-seeker/add").hasAuthority("JOBSEEKER")
-				.requestMatchers("/api/preference/add").hasAuthority("JOBSEEKER")
-				.requestMatchers("/api/company-review/add/{jsId}/{compId}").hasAuthority("JOBSEEKER")
-				.requestMatchers("/api/company-review/get-by-company/{compId}").hasAuthority("JOBSEEKER")
+//				.requestMatchers("/api/company/add").hasAuthority("HR")
+//				.requestMatchers("/api/course/add").hasAuthority("INSTRUCTOR")
+//				.requestMatchers("/api/instructor/profile/createprofile").hasAuthority("INSTRUCTOR")
+//				.requestMatchers("/api/job-seeker/add").hasAuthority("JOBSEEKER")
+//				.requestMatchers("/api/preference/add").hasAuthority("JOBSEEKER")
+//				.requestMatchers("/api/company-review/add/{jsId}/{compId}").hasAuthority("JOBSEEKER")
+//				.requestMatchers("/api/company-review/get-by-company/{compId}").hasAuthority("JOBSEEKER")
 				
 //				.anyRequest().authenticated()
 				.anyRequest().permitAll()
@@ -65,6 +65,7 @@ public class SecurityConfig {
 	BCryptPasswordEncoder passEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+	
 	
 	@Bean
 	AuthenticationManager getAuthManager(AuthenticationConfiguration auth) throws Exception {
