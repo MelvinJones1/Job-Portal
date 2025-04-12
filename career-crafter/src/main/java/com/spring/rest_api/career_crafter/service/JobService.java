@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.rest_api.career_crafter.enums.JobType;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 import com.spring.rest_api.career_crafter.model.Job;
 import com.spring.rest_api.career_crafter.repository.JobRepository;
@@ -28,6 +29,8 @@ public class JobService {
 	}
 
 	public Job createJob(Job job) {
+		
+	
 		return jobRepository.save(job);
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.rest_api.career_crafter.enums.ApplicationStatus;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 import com.spring.rest_api.career_crafter.model.Application;
 import com.spring.rest_api.career_crafter.model.Job;
@@ -41,6 +42,7 @@ public class ApplicationController {
 		
 		application.setJob(job);
 		application.setJobSeeker(jobSeeker);
+		application.setStatus(ApplicationStatus.APPLIED);
 		application.setAppliedAt(LocalDate.now());
 		
 		return applicationService.applyJob(application);
@@ -51,6 +53,13 @@ public class ApplicationController {
 	public List<Application> getAllApplication() {
 		return applicationService.getAllApplication();
 	}
+	
+	
+	@GetMapping("/job/{jobId}/applications")
+    public List<Application> getApplicationsByJob(@PathVariable int jobId) {
+        return applicationService.getApplicationsByJob(jobId);
+    }
+	
 	
 	
 

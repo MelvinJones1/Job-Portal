@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 import com.spring.rest_api.career_crafter.model.Company;
 import com.spring.rest_api.career_crafter.model.CompanyReview;
 import com.spring.rest_api.career_crafter.model.JobSeeker;
@@ -33,7 +34,7 @@ public class CompanyReviewController {
 	
 	@PostMapping("/add/{jsId}/{compId}")
 	public CompanyReview postReview(@PathVariable int jsId, @PathVariable int compId, 
-									@RequestBody CompanyReview companyReview) {
+									@RequestBody CompanyReview companyReview)  throws InvalidIDException{
 		
 		JobSeeker jobSeeker = jobSeekerService.getSingleJobSeeker(jsId);
 		Company company = companyService.getSingleCompany(compId);
