@@ -1,6 +1,5 @@
 package com.spring.rest_api.career_crafter.model;
 
-import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +11,15 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Assessment {
 
-    @Id
+    public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
