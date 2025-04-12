@@ -1,5 +1,7 @@
 package com.spring.rest_api.career_crafter.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,18 @@ public class ExecutiveService {
 	      
 	        return executiveRepository.save(executive);
 	    }
+
+
+
+	public Executive findById(int executiveId) throws InvalidIDException{
+		
+		Optional<Executive> optional = executiveRepository.findById(executiveId);
+		if(optional.isEmpty()) {
+			throw new InvalidIDException("Executive Id is not valid....");
+		}
+		return optional.get();
+		
+	}
 
 }
 
