@@ -88,6 +88,8 @@ public class JobController{
 	public int getApplicantsCountForJob(@PathVariable int jobId) throws InvalidIDException{
 	    return applicationService.countApplicantsForJob(jobId);
 	}
+	
+	
 
 
 }

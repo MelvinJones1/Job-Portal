@@ -16,19 +16,24 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    private Application application;
-
-    @ManyToOne
-    private Executive executive;
+   
 
     private String type; // e.g., "On-site", "Video Call"
     private String modeDetails; // Room number or Google Meet link
 
     private LocalDate date;
     private LocalTime time;
+    
+    private String location;
 
-    private String feedback;
+    
+	private String feedback;
+    
+    @ManyToOne
+    private Application application;
+
+    @ManyToOne
+    private Executive executive;
 
 	public int getId() {
 		return id;
@@ -93,6 +98,15 @@ public class Interview {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	} // optional, given by executive after interview
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
     
     
 }

@@ -110,9 +110,6 @@ public class Company {
 	public void setContactPhone(String contactPhone) {
 		this.contactPhone = contactPhone;
 	}
-
-    // Getters and Setters
-    
-    
+	
 }
 
