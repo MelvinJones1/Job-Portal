@@ -1,12 +1,17 @@
+
 package com.spring.rest_api.career_crafter.service;
 
-import com.spring.rest_api.career_crafter.model.Assignment;
+
+
 import com.spring.rest_api.career_crafter.model.CourseContent;
 import com.spring.rest_api.career_crafter.model.CourseModule;
-import com.spring.rest_api.career_crafter.repository.AssignmentRepository;
+
 import com.spring.rest_api.career_crafter.repository.CourseContentRepository;
 import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
-import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +24,35 @@ public class CourseContentService {
     @Autowired
     private CourseModuleRepository moduleRepository;
 
-    @Autowired
-    private AssignmentRepository assignmentRepository;
 
-    public CourseContent addContent(CourseContent content, int moduleId, Integer assignmentId) throws InvalidIDException {
+
+    public CourseContent addContentToModule(int moduleId, CourseContent content) {
         CourseModule module = moduleRepository.findById(moduleId)
-                .orElseThrow(() -> new InvalidIDException("Invalid Module ID: " + moduleId));
+                .orElseThrow(() -> new RuntimeException("Module not found"));
 
         content.setCourseModule(module);
-
-        if (assignmentId != null) {
-            Assignment assignment = assignmentRepository.findById(assignmentId)
-                    .orElseThrow(() -> new InvalidIDException("Invalid Assignment ID: " + assignmentId));
-            content.setAssignment(assignment);
-        }
-
         return contentRepository.save(content);
+    }
+
+    public CourseContent updateContent(int contentId, CourseContent updatedContent) {
+        CourseContent existing = contentRepository.findById(contentId)
+                .orElseThrow(() -> new RuntimeException("Content not found"));
+
+        existing.setContentTitle(updatedContent.getContentTitle());
+        existing.setContentUrl(updatedContent.getContentUrl());
+        existing.setAssignment(updatedContent.getAssignment());  //  updating assignment,url and title
+
+        return contentRepository.save(existing);
+    }
+
+    public void deleteContent(int contentId) {
+        if (!contentRepository.existsById(contentId)) {
+            throw new RuntimeException("Content not found");
+        }
+        contentRepository.deleteById(contentId);
+    }
+
+    public List<CourseContent> getContentsByModuleId(int moduleId) {
+        return contentRepository.findByCourseModuleId(moduleId);
     }
 }
