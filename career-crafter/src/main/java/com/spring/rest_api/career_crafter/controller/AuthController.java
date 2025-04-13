@@ -38,6 +38,9 @@ public class AuthController {
 		return authService.signUp(user);
 	}
 	
+	
+	
+	
 	@PostMapping("/login")
 	public UserDetails login(Principal principal) {
 		/* Make this login as Authenticated API 
@@ -72,4 +75,7 @@ public class AuthController {
 		String username = principal.getName();
 		return myUserService.loadUserByUsername(username);
 	}
+	
+	
+	
 }

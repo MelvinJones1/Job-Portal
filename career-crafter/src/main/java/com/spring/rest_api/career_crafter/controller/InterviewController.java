@@ -45,6 +45,12 @@ public class InterviewController {
     	return interviewService.getAllInterviews();
     }
     
+    @PutMapping("/reschedule/{id}")
+    public Interview rescheduleInterview(@PathVariable int id, @RequestBody Interview updated) throws InvalidIDException {
+        return interviewService.rescheduleInterview(id, updated);
+    }
+
+    
 
 
 }

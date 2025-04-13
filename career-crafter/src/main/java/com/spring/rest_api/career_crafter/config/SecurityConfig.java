@@ -31,21 +31,21 @@ public class SecurityConfig {
 		http
 		.csrf(csrf->csrf.disable())
 			.authorizeHttpRequests((authorize) -> authorize
-				.requestMatchers("/api/auth/token/generate").permitAll()	
-				.requestMatchers("/api/auth/user/details").authenticated()
-				.requestMatchers("/api/auth/signup").permitAll()
-				.requestMatchers("/api/auth/login").authenticated()
-				.requestMatchers("/api/job/all").permitAll()
-//				.requestMatchers("/api/company/add").hasAuthority("HR")
-//				.requestMatchers("/api/course/add").hasAuthority("INSTRUCTOR")
-//				.requestMatchers("/api/instructor/profile/createprofile").hasAuthority("INSTRUCTOR")
-//				.requestMatchers("/api/job-seeker/add").hasAuthority("JOBSEEKER")
-//				.requestMatchers("/api/preference/add").hasAuthority("JOBSEEKER")
-//				.requestMatchers("/api/company-review/add/{jsId}/{compId}").hasAuthority("JOBSEEKER")
-//				.requestMatchers("/api/company-review/get-by-company/{compId}").hasAuthority("JOBSEEKER")
-				
-//				.anyRequest().authenticated()
-				.anyRequest().permitAll()
+					.requestMatchers("/api/auth/signup").permitAll()
+	                .requestMatchers("/api/auth/token/generate").permitAll()
+	                .requestMatchers("/api/job/all").permitAll()
+
+	                // Login just returns logged in user, should be authenticated
+	                .requestMatchers("/api/auth/login").authenticated()
+	                .requestMatchers("/api/auth/user/details").authenticated()
+
+	                // Role-based access
+	                .requestMatchers("/api/hr/**").hasAuthority("HR")
+	                .requestMatchers("/api/executive/**").hasAuthority("EXECUTIVE")
+	                .requestMatchers("/api/job-seeker/**").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/instructor/**").hasAuthority("INSTRUCTOR")
+	                .requestMatchers("/api/company/add").hasAuthority("ADMIN")
+	                
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
