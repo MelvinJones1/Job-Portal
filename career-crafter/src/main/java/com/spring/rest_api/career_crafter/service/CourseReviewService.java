@@ -1,3 +1,4 @@
+
 package com.spring.rest_api.career_crafter.service;
 
 import com.spring.rest_api.career_crafter.model.CourseReview;
@@ -15,5 +16,9 @@ public class CourseReviewService {
 
     public List<CourseReview> getAllReviews() {
         return courseReviewRepository.findAll();
+    }
+    
+    public List<CourseReview> getReviewsByCourseId(int courseId) {
+        return courseReviewRepository.findByCourseId(courseId);
     }
 }

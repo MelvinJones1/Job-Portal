@@ -1,3 +1,4 @@
+
 package com.spring.rest_api.career_crafter.controller;
 
 import com.spring.rest_api.career_crafter.model.Enrollment;
@@ -20,7 +21,7 @@ public class EnrollmentController {
     @Autowired
     private MessageResponseDto messageDto;
 
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getAllEnrollments() {
         try {
             List<Enrollment> list = enrollmentService.getAllEnrollments();
@@ -31,4 +32,17 @@ public class EnrollmentController {
             return ResponseEntity.status(500).body(messageDto);
         }
     }
+    
+    @GetMapping("/getByCategory/{categoryName}")
+    public List<Enrollment> getEnrollmentsByCategory(@PathVariable String categoryName) {
+        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByCategory(categoryName);
+        return enrollments;
+    }
+
+    @GetMapping("/getByJobseeker/{name}")
+    public List<Enrollment> getEnrollmentsByJobSeeker(@PathVariable String name) {
+        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByJobSeekerName(name);
+        return enrollments;
+    }
+    
 }

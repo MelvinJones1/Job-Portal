@@ -2,7 +2,7 @@ package com.spring.rest_api.career_crafter.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "course_instructor")
