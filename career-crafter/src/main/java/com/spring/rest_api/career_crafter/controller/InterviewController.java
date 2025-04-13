@@ -23,6 +23,8 @@ public class InterviewController {
 	@Autowired
     private InterviewService interviewService;
 
+	
+    // Schedule an interview for a specific application and executive
     @PostMapping("/schedule/{applicationId}/{executiveId}")
     public Interview scheduleInterview(@PathVariable int applicationId,
                                        @PathVariable int executiveId,
@@ -30,24 +32,28 @@ public class InterviewController {
         return interviewService.scheduleInterview(applicationId, executiveId, interview);
     }
     
+    // Get all interviews assigned to a specific executive
     @GetMapping("/executive/{executiveId}")
     public List<Interview> getInterviewsForExecutive(@PathVariable int executiveId) throws InvalidIDException {
         return interviewService.getInterviewsByExecutive(executiveId);
     }
     
+    // Add feedback for a particular interview
     @PutMapping("/addFeedback/{interviewId}")
     public Interview addFeedback(@PathVariable int interviewId,@RequestParam String feedback){
     	return interviewService.addFeedback(interviewId,feedback);
     }
     
+    // Get all interviews
     @GetMapping("/all")
     public List<Interview> getAllInterviews(){
     	return interviewService.getAllInterviews();
     }
     
-    @PutMapping("/reschedule/{id}")
-    public Interview rescheduleInterview(@PathVariable int id, @RequestBody Interview updated) throws InvalidIDException {
-        return interviewService.rescheduleInterview(id, updated);
+    // Reschedule an interview with new date/time
+    @PutMapping("/reschedule/{interviewId}")
+    public Interview rescheduleInterview(@PathVariable int interviewId, @RequestBody Interview updated) throws InvalidIDException {
+        return interviewService.rescheduleInterview(interviewId, updated);
     }
 
     
