@@ -99,7 +99,7 @@ return ResponseEntity.status(400).body(dto);
 	}
 	
 	//get by name/title of course
-	@GetMapping("/api/courses/search")
+	@GetMapping("/courses/search")
 	public List<Course> searchCourses(@RequestParam String title) {
 	    List<Course> courses = courseService.searchCoursesByTitle(title);
 	   return courses;

@@ -55,7 +55,7 @@ public class CourseCategoryController {
         }
     }
     //get course category by id
-    @GetMapping("/get/{ccId}")
+    @GetMapping("/get/{catId}")
 	public CourseCategory getById(@PathVariable int catId) throws InvalidIDException {
     	logger.info("getting categroy by Id");
 		return categoryService.getById(catId);

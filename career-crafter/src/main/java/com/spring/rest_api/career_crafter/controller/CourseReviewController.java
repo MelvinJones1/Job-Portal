@@ -23,7 +23,7 @@ public class CourseReviewController {
     private MessageResponseDto messageDto;
     org.slf4j.Logger logger =  LoggerFactory.getLogger("CourseReviewController"); 
 
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getAllReviews() {
     	logger.info("getting all the reviews");
         try {

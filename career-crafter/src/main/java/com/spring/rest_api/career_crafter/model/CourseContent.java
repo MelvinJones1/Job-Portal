@@ -29,6 +29,16 @@ public class CourseContent {
 		return assignment;
 	}
 
+	  public CourseContent() {
+	    }
+
+	    // Optional: parameterized constructor for easier object creation
+	    public CourseContent(String contentTitle, String contentUrl, CourseModule courseModule, Assignment assignment) {
+	        this.contentTitle = contentTitle;
+	        this.contentUrl = contentUrl;
+	        this.courseModule = courseModule;
+	        this.assignment = assignment;
+	    }
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 	}

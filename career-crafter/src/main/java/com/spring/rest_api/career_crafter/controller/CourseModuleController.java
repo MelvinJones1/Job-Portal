@@ -46,8 +46,8 @@ public class CourseModuleController {
     }
 
     @GetMapping("/getmodules/{courseId}")
-    public List<CourseModule>getModulesByCourseId(@PathVariable int cId) {
-        List<CourseModule> modules = moduleService.getModulesByCourseId(cId);
+    public List<CourseModule>getModulesByCourseId(@PathVariable int courseId) {
+        List<CourseModule> modules = moduleService.	getModulesByCourseId(courseId);
         return modules;
     }
 }

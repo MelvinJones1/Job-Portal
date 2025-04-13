@@ -82,14 +82,14 @@ public class InstructorController {
 			dto.setStatus(200);
 			return ResponseEntity.ok(dto);
 		} catch (InvalidIDException e) {
-			logger.error("error deleting the instructor");
+			logger.error("error deleting the instructor");	
 			dto.setMessage(e.getMessage());
 			dto.setStatus(400);
 			return ResponseEntity.status(400).body(dto); 
 		}
 	}
 	//upload the image of the instructor
-	@PostMapping("/image/upload/{Ins-id}")
+	@PostMapping("/image/upload/{Insid}")
 	public Instructor uploadImage(@PathVariable int Insid, 
 							@RequestParam MultipartFile file) throws IOException, InvalidIDException {
 		
