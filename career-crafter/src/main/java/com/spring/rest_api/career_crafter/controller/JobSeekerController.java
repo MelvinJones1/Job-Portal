@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 import com.spring.rest_api.career_crafter.model.JobSeeker;
 import com.spring.rest_api.career_crafter.service.JobSeekerService;
 
@@ -18,13 +19,17 @@ public class JobSeekerController {
 	@Autowired
 	private JobSeekerService jobSeekerService;
 	
-	@PostMapping("/add")
-	public JobSeeker addJobSeeker(@RequestBody JobSeeker jobSeeker) {
-		return jobSeekerService.addJobSeeker(jobSeeker);
+	
+	@PostMapping("/add/{userId}/{preferenceId}")
+	public JobSeeker createJobSeeker(@PathVariable int userId,
+	                                  @PathVariable int preferenceId,
+	                                  @RequestBody JobSeeker jobSeeker) throws InvalidIDException{
+	    return jobSeekerService.createJobSeeker(userId, preferenceId, jobSeeker);
 	}
 	
+	
 	@GetMapping("/get/{jsId}")
-	public JobSeeker getSingleJobSeeker(@PathVariable int jsId) {
+	public JobSeeker getSingleJobSeeker(@PathVariable int jsId) throws InvalidIDException {
 		return jobSeekerService.getSingleJobSeeker(jsId);
 	}
 

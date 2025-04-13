@@ -1,15 +1,15 @@
 package com.spring.rest_api.career_crafter.model;
 
-import jakarta.persistence.Column;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "interviews")
 public class Interview {
 
     @Id
@@ -17,59 +17,82 @@ public class Interview {
     private int id;
 
     @ManyToOne
-    private Executive executive; //  Who is conducting the interview
+    private Application application;
 
-    @Column(nullable = false)
-    private String round; // Round 1, Round 2, Final Round, etc.
+    @ManyToOne
+    private Executive executive;
 
-    @Column(nullable = false)
-    private String status; // Scheduled, Completed, Cancelled
+    private String type; // e.g., "On-site", "Video Call"
+    private String modeDetails; // Room number or Google Meet link
 
-    @Column(nullable = true)
-    private String feedback; // Interviewer's feedback
+    private LocalDate date;
+    private LocalTime time;
 
-    @Column(nullable = false)
-    private String meetingLink; // Google Meet / Zoom / Teams link for the interview
+    private String feedback;
 
-    // Getters and Setters
- Executive getExecutive() { 
-    	return executive; 
-    	}
-    public int getId() {
-	return id;
-}
-public void setId(int id) {
-	this.id = id;
-}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+	public Executive getExecutive() {
+		return executive;
+	}
+
 	public void setExecutive(Executive executive) {
-    	this.executive = executive;
-    	}
+		this.executive = executive;
+	}
 
-    public String getRound() {
-    	return round; 
-    	}
-    public void setRound(String round) { 
-    	this.round = round;
-    	}
+	public String getType() {
+		return type;
+	}
 
-    public String getStatus() {
-    	return status; 
-    	}
-    public void setStatus(String status) {
-    	this.status = status;
-    	}
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getFeedback() {
-    	return feedback;
-    	}
-    public void setFeedback(String feedback) {
-    	this.feedback = feedback;
-    	}
+	public String getModeDetails() {
+		return modeDetails;
+	}
 
-    public String getMeetingLink() {
-    	return meetingLink;
-    	}
-    public void setMeetingLink(String meetingLink) {
-    	this.meetingLink = meetingLink; 
-    	}
+	public void setModeDetails(String modeDetails) {
+		this.modeDetails = modeDetails;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public LocalTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalTime time) {
+		this.time = time;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	} // optional, given by executive after interview
+    
+    
 }

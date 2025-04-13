@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.rest_api.career_crafter.enums.ApplicationStatus;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 import com.spring.rest_api.career_crafter.model.Application;
 import com.spring.rest_api.career_crafter.model.Job;
 import com.spring.rest_api.career_crafter.model.JobSeeker;
 import com.spring.rest_api.career_crafter.service.ApplicationService;
+import com.spring.rest_api.career_crafter.service.AssessmentService;
 import com.spring.rest_api.career_crafter.service.JobSeekerService;
 import com.spring.rest_api.career_crafter.service.JobService;
 
@@ -32,6 +36,9 @@ public class ApplicationController {
 	@Autowired
 	private JobService jobService;
 	
+	@Autowired
+	private AssessmentService assessmentService;
+	
 	@PostMapping("/add/{jsId}/{jobId}")
 	public Application applyJob(@PathVariable int jsId, @PathVariable int jobId
 								,@RequestBody Application application) throws InvalidIDException {
@@ -41,6 +48,7 @@ public class ApplicationController {
 		
 		application.setJob(job);
 		application.setJobSeeker(jobSeeker);
+		application.setStatus(ApplicationStatus.APPLIED);
 		application.setAppliedAt(LocalDate.now());
 		
 		return applicationService.applyJob(application);
@@ -51,6 +59,27 @@ public class ApplicationController {
 	public List<Application> getAllApplication() {
 		return applicationService.getAllApplication();
 	}
+	
+	
+	@GetMapping("/job/{jobId}/applications")
+    public List<Application> getApplicationsByJob(@PathVariable int jobId) {
+        return applicationService.getApplicationsByJob(jobId);
+    }
+	
+	@PutMapping("/update-status/{applicationId}")
+	public Application updateStatus(@PathVariable int applicationId, @RequestParam String status) throws InvalidIDException {
+	    return applicationService.updateApplicationStatus(applicationId, status);
+	}
+	
+
+	@GetMapping("/sort-by-score")
+	public List<Application> getSortedApplicationsByScore() {
+	    return assessmentService.getApplicationsSortedByScoreDesc();  // call from AssessmentService
+	}
+
+
+
+	
 	
 	
 

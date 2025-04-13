@@ -1,15 +1,25 @@
 package com.spring.rest_api.career_crafter.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Assessment {
 
-    @Id
+    public Application getApplication() {
+		return application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -25,6 +35,9 @@ public class Assessment {
 
     @Column(nullable = true)
     private Double score; // Score assigned by HR
+    
+    @ManyToOne
+    private Application application;
 
 
 
