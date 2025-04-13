@@ -1,6 +1,7 @@
 package com.spring.rest_api.career_crafter.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,24 @@ public class InterviewService {
 
 			return interviewRepository.findAll();
 	}
+	
+	public Interview findById(int interviewId) throws InvalidIDException {
+		Optional<Interview> optional = interviewRepository.findById(interviewId);
+		if(optional.isEmpty()) {
+			throw new InvalidIDException("Invalid Interview Id");
+		}
+		
+		return optional.get();
+	}
+
+	public Interview rescheduleInterview(int id, Interview updated) throws InvalidIDException {
+	    Interview existing = findById(id); 
+
+	    existing.setDate(updated.getDate());
+	    existing.setTime(updated.getTime());
+
+	    return interviewRepository.save(existing);
+	}
+
 
 }

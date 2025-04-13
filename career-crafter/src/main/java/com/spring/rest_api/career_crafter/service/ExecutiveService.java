@@ -25,22 +25,18 @@ public class ExecutiveService {
 
 
 
-	  public Executive createExecutive(int userId, int companyId, Executive executive) throws InvalidIDException{
-	        // 1. Fetch user
-	        User user = authService.findById(userId);
 
-	        // 2. Check if user has EXECUTIVE role
+	    public Executive createExecutive(int userId, int companyId, Executive executive) throws InvalidIDException {
+	        User user = authService.findById(userId);
 	        if (!user.getRole().equalsIgnoreCase("EXECUTIVE")) {
-	            throw new RuntimeException("User is not authorized to be registered as Executive");
+	            throw new RuntimeException("User must have EXECUTIVE role.");
 	        }
 
-	        // 3. Fetch company
 	        Company company = companyService.getSingleCompany(companyId);
 
-	        // 4. Set & save
 	        executive.setUser(user);
 	        executive.setCompany(company);
-	      
+
 	        return executiveRepository.save(executive);
 	    }
 
