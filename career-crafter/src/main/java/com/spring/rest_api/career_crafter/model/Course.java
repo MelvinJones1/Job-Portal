@@ -37,18 +37,22 @@ public class Course {
 
     private boolean isEnrolled = false;
 
-    
+    public Course() {
+        // empty constructor required by JPA
+    }
 
-    // --- Getters and Setters ---
+
     public Course(String title, String description, String aboutTheCourse,
             String difficultyLevel, CourseCategory courseCategory, Instructor instructor) {
-  this.title = title;
-  this.description = description;
-  this.aboutTheCourse = aboutTheCourse;
-  this.difficultyLevel = difficultyLevel;
-  this.createdAt = LocalDate.now(); // set default creation date
-  
+this.title = title;
+this.description = description;
+this.aboutTheCourse = aboutTheCourse;
+this.difficultyLevel = difficultyLevel;
+this.createdAt = LocalDate.now();
 }
+
+  
+
 
     public int getId() {
         return id;
