@@ -1,3 +1,4 @@
+
 package com.spring.rest_api.career_crafter.controller;
 
 import com.spring.rest_api.career_crafter.model.CourseReview;
@@ -30,5 +31,11 @@ public class CourseReviewController {
             messageDto.setStatus(500);
             return ResponseEntity.status(500).body(messageDto);
         }
+    }
+   
+    @GetMapping("/course/{courseId}")
+    public List<CourseReview> getReviewsByCourseId(@PathVariable int courseId) {
+        List<CourseReview> reviews =courseReviewService.getReviewsByCourseId(courseId);
+        return reviews;
     }
 }
