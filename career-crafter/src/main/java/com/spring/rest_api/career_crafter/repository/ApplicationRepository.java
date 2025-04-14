@@ -9,6 +9,9 @@ import com.spring.rest_api.career_crafter.model.Application;
 
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
     List<Application> findByJobId(int jobId); // Fetch all applications for a job
+    List<Application> findByJobSeekerId(int jsId); // Fetch all applications by a JobSeeker
+	List<Application> findByStatus(ApplicationStatus status); //fetch all all application applicationStatus
+    
 
 	List<Application> findByStatus(ApplicationStatus status);// Fetch Applications based on status
 

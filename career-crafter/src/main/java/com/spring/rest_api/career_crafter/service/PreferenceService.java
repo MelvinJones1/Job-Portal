@@ -15,10 +15,7 @@ public class PreferenceService {
 	@Autowired
 	private PreferenceRepository preferenceRepository;
 	
-	public Preference addPrefernce(Preference preference) {
-		
-		return preferenceRepository.save(preference);
-	}
+
 
 	public Preference findById(int preferenceId)throws InvalidIDException {
 
@@ -27,6 +24,10 @@ public class PreferenceService {
 			throw new InvalidIDException("Preference Id is not valid....");
 		}
 		return optional.get();
+	}
+
+	public Preference addPreference(Preference preference) {
+		return preferenceRepository.save(preference);
 	}
 
 }

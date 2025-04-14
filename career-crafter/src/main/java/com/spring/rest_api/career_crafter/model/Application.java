@@ -28,6 +28,9 @@ public class Application {
 
     @ManyToOne
     private JobSeeker jobSeeker; // Applicant
+    
+    @Column(nullable = false)
+    private boolean isApplied = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

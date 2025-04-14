@@ -47,6 +47,15 @@ public class SecurityConfig {
 	                
 	                .requestMatchers("/api/instructor/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/company/add").hasAuthority("ADMIN")
+	                .requestMatchers("/api/preference/add").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/company-review/**").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/job/add/{hrId}").hasAuthority("HR")
+	                .requestMatchers("/api/application/add/{jsId}/{jobId}").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/application/count/total/{jsId}").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/application/count-by-status/{jsId}").hasAuthority("JOBSEEKER")
+	                
+	                
+	                 
 	                .requestMatchers("/api/certificta/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/assignment/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/category/**").hasAuthority("INSTRUCTOR")
@@ -65,6 +74,7 @@ public class SecurityConfig {
 	               .requestMatchers("/api/enrollments/getByJobseeker/{name}").hasAuthority("INSTRUCTOR")
 	               .requestMatchers("/api/enrollments/getAll").hasAuthority("INSTRUCTOR") 
 	                
+	               
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

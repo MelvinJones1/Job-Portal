@@ -17,8 +17,8 @@ public class PreferenceController {
 	private PreferenceService preferenceService;
 	
 	@PostMapping("/add")
-	public Preference addPrefernce(@RequestBody Preference preference) {
-		return preferenceService.addPrefernce(preference);
+	public Preference addPreference(@RequestBody Preference preference) {
+		return preferenceService.addPreference(preference);
 	}
 
 }
