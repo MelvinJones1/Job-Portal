@@ -21,12 +21,15 @@ public class AssessmentController {
 	private AssessmentService assessmentService;
 	
 	
+    // Send an assessment to a candidate for a specific application
 	@PostMapping("/send/{applicationId}")
 	public Assessment sendAssessment(@PathVariable int applicationId,
 	                                 @RequestBody Assessment assessment)  throws InvalidIDException{
 	    return assessmentService.sendAssessment(applicationId, assessment);
 	}
 	
+	
+    // Update the score of an existing assessment
 	@PutMapping("/update-score/{assessmentId}")
     public Assessment updateScore(@PathVariable int assessmentId,
                                   @RequestParam double score) {
