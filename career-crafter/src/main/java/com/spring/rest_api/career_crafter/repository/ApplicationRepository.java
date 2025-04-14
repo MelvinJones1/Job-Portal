@@ -12,4 +12,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     List<Application> findByJobSeekerId(int jsId); // Fetch all applications by a JobSeeker
 	List<Application> findByStatus(ApplicationStatus status); //fetch all all application applicationStatus
     
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
