@@ -32,6 +32,8 @@ public class CompanyReviewController {
 	@Autowired
 	private JobSeekerService jobSeekerService;
 	
+	
+	//Post company review
 	@PostMapping("/add/{jsId}/{compId}")
 	public CompanyReview postReview(@PathVariable int jsId, @PathVariable int compId, 
 									@RequestBody CompanyReview companyReview)  throws InvalidIDException{
@@ -46,10 +48,24 @@ public class CompanyReviewController {
 		return companyReviewService.postReview(companyReview);
 	}
 	
+	//get all reviews of a company
 	@GetMapping("/get-by-company/{compId}")
 	public List<CompanyReview> getCompanyReviewByCompId(@PathVariable int compId) {
 		companyService.getSingleCompany(compId);
 		return companyReviewService.getCompanyReviewByCompId(compId);
 	}
 
+	//gets the overall rating of a company
+	@GetMapping("/overall-rating/{compId}")
+	public Double getOverallRating(@PathVariable int compId) {
+		companyService.getSingleCompany(compId);
+		return companyReviewService.getOverallRating(compId);
+	}
+	
+	
+	@GetMapping("/count/{compId}")
+	public int getTotalReviews(@PathVariable int compId) {
+		companyService.getSingleCompany(compId);
+		return companyReviewService.getTotalReviews(compId);
+	}
 }
