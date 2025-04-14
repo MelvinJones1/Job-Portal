@@ -59,5 +59,18 @@ public class ApplicationService {
 	    return applicationRepository.save(application);
 	}
 
+	// return total no. of apllications submitted by jobseeker
+	public int getTotalApplications(int jsId) {
+		List<Application> list = applicationRepository.findAll();
+		return list.size();
+	}
+
+	public int getApplicationCountByStatus(ApplicationStatus status) {
+		List<Application> list = applicationRepository.findByStatus(status);
+		return list.size();
+	}
+	
+	
+
 
 }
