@@ -43,6 +43,8 @@ public class SecurityConfig {
 	                .requestMatchers("/api/hr/**").hasAuthority("HR")
 	                .requestMatchers("/api/executive/**").hasAuthority("EXECUTIVE")
 	                .requestMatchers("/api/job-seeker/**").hasAuthority("JOBSEEKER")
+	                .requestMatchers("/api/assessment/all/{appId}").hasAuthority("JOBSEEKER")
+	                
 	                .requestMatchers("/api/instructor/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/company/add").hasAuthority("ADMIN")
 	                .requestMatchers("/api/certificta/**").hasAuthority("INSTRUCTOR")

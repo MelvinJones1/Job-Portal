@@ -23,7 +23,7 @@ import com.spring.rest_api.career_crafter.service.AssessmentService;
 import com.spring.rest_api.career_crafter.service.JobSeekerService;
 import com.spring.rest_api.career_crafter.service.JobService;
 
-@RestController
+@RestController    
 @RequestMapping("/api/application")
 public class ApplicationController {
 	

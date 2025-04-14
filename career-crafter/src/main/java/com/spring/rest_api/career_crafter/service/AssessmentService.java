@@ -49,4 +49,9 @@ public class AssessmentService {
     }
 
 
+	public Assessment getAllAssessment(int appId) {
+			return assessmentRepository.findByApplicationId(appId);
+	}
+
+
 }
