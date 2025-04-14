@@ -80,5 +80,20 @@ public class ApplicationController {
 	    return assessmentService.getApplicationsSortedByScoreDesc();  
 	}
 
-
+	// Get Total No. of applications submitted by Jobseeker
+	@GetMapping("/count/total/{jsId}")
+	public int getTotalApplications(@PathVariable int jsId) throws InvalidIDException {
+		jobSeekerService.getSingleJobSeeker(jsId);
+		return applicationService.getTotalApplications(jsId);
+		}
+	
+	// Get Total No. of applications based on status of application 
+	@GetMapping("/count-by-status/{jsId}")
+	public int getApplicationCountByStatus(@PathVariable int jsId, @RequestParam ApplicationStatus status) throws InvalidIDException {
+		jobSeekerService.getSingleJobSeeker(jsId);
+		return applicationService.getApplicationCountByStatus(status);
+	}
+	
+	
+	
 }
