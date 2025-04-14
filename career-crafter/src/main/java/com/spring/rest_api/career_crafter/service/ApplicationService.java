@@ -65,9 +65,18 @@ public class ApplicationService {
 		return list.size();
 	}
 
+
+	// Jobseeker can view application count based on status 
 	public int getApplicationCountByStatus(ApplicationStatus status) {
 		List<Application> list = applicationRepository.findByStatus(status);
 		return list.size();
+	}
+
+	public  Application getSingleApplicationId(int appId) throws InvalidIDException {
+		Optional<Application> optional = applicationRepository.findById(appId);
+		if(optional.isEmpty())
+			throw new InvalidIDException("Invalid Application Id...");
+		return optional.get();
 	}
 	
 	

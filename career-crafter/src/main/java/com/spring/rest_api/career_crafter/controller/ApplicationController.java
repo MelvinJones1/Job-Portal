@@ -23,7 +23,7 @@ import com.spring.rest_api.career_crafter.service.AssessmentService;
 import com.spring.rest_api.career_crafter.service.JobSeekerService;
 import com.spring.rest_api.career_crafter.service.JobService;
 
-@RestController
+@RestController    
 @RequestMapping("/api/application")
 public class ApplicationController {
 	
@@ -86,7 +86,7 @@ public class ApplicationController {
 		jobSeekerService.getSingleJobSeeker(jsId);
 		return applicationService.getTotalApplications(jsId);
 		}
-	
+
 	// Get Total No. of applications based on status of application 
 	@GetMapping("/count-by-status/{jsId}")
 	public int getApplicationCountByStatus(@PathVariable int jsId, @RequestParam ApplicationStatus status) throws InvalidIDException {
