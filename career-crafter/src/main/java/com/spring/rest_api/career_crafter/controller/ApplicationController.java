@@ -86,11 +86,8 @@ public class ApplicationController {
 		jobSeekerService.getSingleJobSeeker(jsId);
 		return applicationService.getTotalApplications(jsId);
 		}
-	
-<<<<<<< Updated upstream
+
 	// Get Total No. of applications based on status of application 
-=======
->>>>>>> Stashed changes
 	@GetMapping("/count-by-status/{jsId}")
 	public int getApplicationCountByStatus(@PathVariable int jsId, @RequestParam ApplicationStatus status) throws InvalidIDException {
 		jobSeekerService.getSingleJobSeeker(jsId);
