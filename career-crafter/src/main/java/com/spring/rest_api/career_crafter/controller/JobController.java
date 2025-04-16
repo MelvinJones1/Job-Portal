@@ -1,6 +1,7 @@
 package com.spring.rest_api.career_crafter.controller;
 
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,13 +43,12 @@ public class JobController{
 	}
 	
     // HR posts a new job 
-	@PostMapping("/add/{hrId}")
-	public Job postJob(@PathVariable int hrId, @RequestBody Job job) throws InvalidIDException{
-	    // Ensure the HR exists
-	    Hr hr = hrService.findById(hrId);
-	            
+	@PostMapping("/add")
+	public Job postJob(@RequestBody Job job, Principal principal) throws InvalidIDException {
+	    String username = principal.getName(); // Extract from token
+	    Hr hr = hrService.findByUsername(username); // Get HR from username
 
-	    job.setHr(hr); 
+	    job.setHr(hr);
 	    return jobService.createJob(job);
 	}
 	

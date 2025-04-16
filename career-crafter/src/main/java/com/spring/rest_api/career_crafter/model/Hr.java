@@ -37,6 +37,15 @@ public class Hr {
     private LocalDate createdAt;
 	
 	
+	// Constructor for test only
+	public Hr(int id, String name, String email) {
+	    this.id = id;
+	    this.name = name;
+	    this.email = email;
+	}
+
+	
+	
 
 	public User getUser() {
 		return user;
