@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.rest_api.career_crafter.enums.ApplicationStatus;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.Application;
 import com.spring.rest_api.career_crafter.model.Company;
 import com.spring.rest_api.career_crafter.model.Hr;
@@ -70,23 +71,21 @@ public class HrService {
 	
 
 	
-	public Hr createHr(Hr hr) throws InvalidIDException {
+	public Hr createHr(Hr hr) throws InvalidIDException, InvalidUsernameException {
 		
-        User user = authService.findById(hr.getUser().getId());
-        
-        if (!user.getRole().equalsIgnoreCase("HR")) {
-            throw new RuntimeException("User must have HR role.");
-        }
-        user = authRepository.save(user);
+		User savedUser = authService.signUp(hr.getUser());
 
-        Company company = companyService.getSingleCompany(hr.getCompany().getId());
-        company = companyRepository.save(company);
+	    if (!savedUser.getRole().equalsIgnoreCase("HR")) {
+	        throw new RuntimeException("User must have HR role.");
+	    }
 
-        hr.setUser(user);
-        hr.setCompany(company);
-        hr.setCreatedAt(LocalDate.now());
+	    Company company = companyService.getSingleCompany(hr.getCompany().getId());
+	    
+	    hr.setUser(savedUser);
+	    hr.setCompany(company);
+	    hr.setCreatedAt(LocalDate.now());
 
-        return hrRepository.save(hr);
+	    return hrRepository.save(hr);
     }
 
 

@@ -49,7 +49,7 @@ public class SecurityConfig {
 	                .requestMatchers("/api/company/add").hasAuthority("ADMIN")
 	                .requestMatchers("/api/preference/add").hasAuthority("JOBSEEKER")
 	                .requestMatchers("/api/company-review/**").hasAuthority("JOBSEEKER")
-	                .requestMatchers("/api/job/add/{hrId}").hasAuthority("HR")
+	                .requestMatchers("/api/job/add").hasAuthority("HR")
 	                .requestMatchers("/api/application/add/{jsId}/{jobId}").hasAuthority("JOBSEEKER")
 	                .requestMatchers("/api/application/count/total/{jsId}").hasAuthority("JOBSEEKER")
 	                .requestMatchers("/api/application/count-by-status/{jsId}").hasAuthority("JOBSEEKER")
