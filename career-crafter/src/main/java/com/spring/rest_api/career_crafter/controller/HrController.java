@@ -25,13 +25,11 @@ public class HrController {
 	@Autowired
 	private HrService hrService;
 	
-	 // Create a new HR profile with reference to an existing user and company.
-	@PostMapping("/add/{userId}/{companyId}")
-    public Hr createHr(@PathVariable int userId,
-                       @PathVariable int companyId,
-                       @RequestBody Hr hr)  throws InvalidIDException{
+	 // Add a new HR profile with reference to an existing user and company.
+	@PostMapping("/add/")
+    public Hr createHr(@RequestBody Hr hr)  throws InvalidIDException{
 		
-        return hrService.createHr(userId, companyId, hr);
+        return hrService.createHr(hr);
         
     }
 	
