@@ -16,6 +16,7 @@ public class AssessmentService {
 	@Autowired
 	private AssessmentRepository assessmentRepository;
 	
+	
 	@Autowired
 	private ApplicationService  applicationService;
 
@@ -47,6 +48,29 @@ public class AssessmentService {
 
         return assessmentRepository.save(assessment);
     }
+
+
+	
+	//Get all assessments posted
+	public List<Assessment> getAllAssessment() {
+		// TODO Auto-generated method stub
+		return assessmentRepository.findAll();
+	}
+
+	//Gets all assessment send to JobSeeker
+	public List<Assessment> getAssessmentByJobSeekerId(int jsId) {
+		
+		//filters out application made by the jobseeker
+		List<Application> applicationList = applicationService.getAllApplication()
+											.stream().filter(app -> app.getJobSeeker().getId() == jsId)
+											.toList();
+		
+		//assessments for the application is filtered 
+		List<Assessment> assessmentList = getAllAssessment().stream()
+											.filter(a -> applicationList.contains(a.getApplication()))
+											.toList();
+		return assessmentList;
+	}
 
 
 }

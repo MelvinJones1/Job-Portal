@@ -59,5 +59,27 @@ public class ApplicationService {
 	    return applicationRepository.save(application);
 	}
 
+	// return total no. of apllications submitted by jobseeker
+	public int getTotalApplications(int jsId) {
+		List<Application> list = applicationRepository.findAll();
+		return list.size();
+	}
+
+
+	// Jobseeker can view application count based on status 
+	public int getApplicationCountByStatus(ApplicationStatus status) {
+		List<Application> list = applicationRepository.findByStatus(status);
+		return list.size();
+	}
+
+	public  Application getSingleApplicationId(int appId) throws InvalidIDException {
+		Optional<Application> optional = applicationRepository.findById(appId);
+		if(optional.isEmpty())
+			throw new InvalidIDException("Invalid Application Id...");
+		return optional.get();
+	}
+	
+	
+
 
 }
