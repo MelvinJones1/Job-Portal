@@ -11,6 +11,7 @@ import com.spring.rest_api.career_crafter.repository.CourseRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,12 @@ public class CourseModuleService {
     private CourseRepository courseRepository;
 
     public CourseModule addModuleToCourse(int courseId, CourseModule module) {
+        if (module.getTitle() == null || module.getTitle().isEmpty()) {
+            throw new RuntimeException("Module title cannot be empty");
+        }
+        if (module.getUrl() == null || module.getUrl().isEmpty()) {
+            throw new RuntimeException("Module URL cannot be empty");
+        }
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
         module.setCourse(course);
@@ -48,7 +55,7 @@ public class CourseModuleService {
         moduleRepository.deleteById(moduleId);
     }
 
-    public List<CourseModule> getModulesByCourseId(int courseId) {
-        return moduleRepository.findByCourseId(courseId);
+    public List<CourseModule> getModulesByCourseIdPaginated(int courseId, Pageable pageable) {
+        return moduleRepository.findByCourseId(courseId, pageable).getContent(); // Extract List from Page
     }
 }

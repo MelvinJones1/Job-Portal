@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.rest_api.career_crafter.dto.MessageResponseDto;
@@ -31,6 +34,8 @@ public class CourseCategoryController {
     @Autowired
     private MessageResponseDto messageResponseDto;
     org.slf4j.Logger logger =  LoggerFactory.getLogger("CourseCategoryController"); 
+    
+    
 //add category
     @PostMapping("/add")
     public ResponseEntity<CourseCategory> addCategory(@RequestBody CourseCategory category) {
@@ -39,21 +44,24 @@ public class CourseCategoryController {
         logger.info("added the category successfully");
         return ResponseEntity.ok(savedCategory);
     }
-    //get all the course categories
     @GetMapping("/getAll")
-    public ResponseEntity<?> getAllCategories() {
-    	logger.info("fetching all the categories");
+    public ResponseEntity<?> getAllCategories(@RequestParam int page,
+                                                       @RequestParam int size) {
+        logger.info("Fetching all course categories with pagination");
+        Pageable pageable = PageRequest.of(page, size);
         try {
-            List<CourseCategory> categories = categoryService.getAllCategories();
-           logger.info("got the list of categories");
-            return ResponseEntity.ok(categories);
+            List<CourseCategory> categories = categoryService.getAllCategories(pageable);
+            logger.info("Got the paginated list of categories");
+            return ResponseEntity.ok(categories); // Return the List directly
         } catch (Exception e) {
-        	logger.error("error getting the categories");
-            messageResponseDto.setMessage("Error fetching categories: " + e.getMessage());
+            logger.error("Error fetching categories: {}", e.getMessage());
+            messageResponseDto.setMessage("Error fetching paginated categories: " + e.getMessage());
             messageResponseDto.setStatus(500);
             return ResponseEntity.status(500).body(messageResponseDto);
         }
     }
+    
+    
     //get course category by id
     @GetMapping("/get/{catId}")
 	public CourseCategory getById(@PathVariable int catId) throws InvalidIDException {

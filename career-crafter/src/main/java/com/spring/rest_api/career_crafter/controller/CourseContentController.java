@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -48,11 +50,31 @@ public class CourseContentController {
         logger.info("deleted the course content");
         
     }
-//displays all the contents ny module id
-    @GetMapping("/module/{moduleId}")
-    public List<CourseContent> getContentsByModuleId(@PathVariable int moduleId) {
-        List<CourseContent> contents = contentService.getContentsByModuleId(moduleId);
-        logger.info("returned all the contents by module id");
-        return contents;
+    @GetMapping("/module/{moduleId}/paginated")
+    public ResponseEntity<?> getContentsByModuleId(@PathVariable int moduleId,
+                                                            @RequestParam int page,
+                                                            @RequestParam int size) {
+        logger.info("Fetching contents for module ID {} with pagination", moduleId);
+        Pageable pageable = PageRequest.of(page, size);
+        try {
+            List<CourseContent> contents = contentService.getContentsByModuleId(moduleId, pageable);
+            return ResponseEntity.ok(contents);
+        } catch (Exception e) {
+            logger.error("Error fetching contents: {}", e.getMessage());
+            return ResponseEntity.status(500).body("Failed to fetch contents: " + e.getMessage());
+        }
+    }
+    
+   
+    @PostMapping("/add/multiple/module/{moduleId}")
+    public ResponseEntity<?> addMultipleContentsToModule(@PathVariable int moduleId, @RequestBody List<CourseContent> contents) {
+        logger.info("Adding multiple contents to module ID: {}", moduleId);
+        try {
+            List<CourseContent> savedContents = contentService.addMultipleContentsToModule(moduleId, contents);
+            return ResponseEntity.ok(savedContents);
+        } catch (Exception e) {
+            logger.error("Error adding contents: {}", e.getMessage());
+            return ResponseEntity.status(500).body("Failed to add contents: " + e.getMessage());
+        }
     }
 }
