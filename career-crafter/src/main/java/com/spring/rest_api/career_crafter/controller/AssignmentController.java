@@ -4,15 +4,20 @@ package com.spring.rest_api.career_crafter.controller;
 import com.spring.rest_api.career_crafter.model.Assignment;
 
 
+
 import com.spring.rest_api.career_crafter.service.AssignmentService;
 import com.spring.rest_api.career_crafter.dto.MessageResponseDto;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,15 +49,28 @@ public class AssignmentController {
         
     }
     
-    //get all assignments
     @GetMapping
-    public ResponseEntity<?> getAllAssignments() {
-    	 logger.info("Fetching all assignments");
-        List<Assignment> list = assignmentService.getAllAssignments();
-        logger.info("found the assignments");
-        return ResponseEntity.ok(list);
+    public ResponseEntity<?> getAllAssignments(@RequestParam int page,
+            @RequestParam int size) {
+        logger.info("Fetching all assignments with pagination");
+        Pageable pageable = PageRequest.of(page, size); // Pagination object
+        try {
+            List<Assignment> assignments = assignmentService.getAllAssignments(pageable).getContent(); // Paginated content
+            logger.info("Found assignments with pagination");
+            return ResponseEntity.ok(assignments); // Return as a list
+        } catch (Exception e) {
+            logger.error("Error fetching assignments: {}", e.getMessage());
+            MessageResponseDto messageDto = new MessageResponseDto();
+            messageDto.setMessage("Failed to fetch assignments: " + e.getMessage());
+            messageDto.setStatus(500);
+            return ResponseEntity.status(500).body(messageDto); // Error response
+        }
     }
-    //get assignment by id
+    
+	   
+    
+    
+    //get assignment by assignnment id
     @GetMapping("/get/{aId}")
 	public Assignment getSingleAssignment(@PathVariable int aId) {
     	logger.info("getting the assignment with id");
@@ -101,4 +119,5 @@ public class AssignmentController {
 		messageDto.setStatus(200);
 		return ResponseEntity.ok(messageDto);
     }
+  	
 }

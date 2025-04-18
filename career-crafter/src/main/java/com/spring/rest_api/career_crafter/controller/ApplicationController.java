@@ -39,6 +39,7 @@ public class ApplicationController {
 	@Autowired
 	private AssessmentService assessmentService;
 	
+    // Job Seeker applies to a job using job ID and their ID
 	@PostMapping("/add/{jsId}/{jobId}")
 	public Application applyJob(@PathVariable int jsId, @PathVariable int jobId
 								,@RequestBody Application application) throws InvalidIDException {
@@ -55,32 +56,29 @@ public class ApplicationController {
 		
 	}
 	
+    // Get list of all job applications.
 	@GetMapping("/all")
 	public List<Application> getAllApplication() {
 		return applicationService.getAllApplication();
 	}
 	
-	
+    // Get applications for a specific job by job ID
 	@GetMapping("/job/{jobId}/applications")
     public List<Application> getApplicationsByJob(@PathVariable int jobId) {
         return applicationService.getApplicationsByJob(jobId);
     }
 	
+    // Update status of an application (e.g., Shortlisted, Hired, Rejected)
 	@PutMapping("/update-status/{applicationId}")
 	public Application updateStatus(@PathVariable int applicationId, @RequestParam String status) throws InvalidIDException {
 	    return applicationService.updateApplicationStatus(applicationId, status);
 	}
 	
-
+    // Get all applications sorted by assessment score in descending order
 	@GetMapping("/sort-by-score")
 	public List<Application> getSortedApplicationsByScore() {
-	    return assessmentService.getApplicationsSortedByScoreDesc();  // call from AssessmentService
+	    return assessmentService.getApplicationsSortedByScoreDesc();  
 	}
 
-
-
-	
-	
-	
 
 }

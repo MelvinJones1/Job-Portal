@@ -16,6 +16,7 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
+	// add companies 
 	@PostMapping("/add")
 	public Company addCompany(@RequestBody Company company) {
 		return companyService.addCompany(company);

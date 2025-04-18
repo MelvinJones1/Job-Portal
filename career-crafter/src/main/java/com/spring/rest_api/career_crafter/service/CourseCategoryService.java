@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -24,10 +25,10 @@ public class CourseCategoryService {
         return categoryRepository.save(category);
     }
     
-    public List<CourseCategory> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CourseCategory> getAllCategories(Pageable pageable) {
+        // Fetch paginated data and extract the content as a List
+        return categoryRepository.findAll(pageable).getContent();
     }
-    
     
 	public CourseCategory getSingleCategory(int catId) {
 		Optional<CourseCategory> optional =categoryRepository.findById(catId);

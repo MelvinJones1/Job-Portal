@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
 	List<Enrollment> findByCourseCategory(String category);
 	List<Enrollment> findByJobSeekerName(String name);
+	long count();
+	long countByCompleted(boolean completed);
 }

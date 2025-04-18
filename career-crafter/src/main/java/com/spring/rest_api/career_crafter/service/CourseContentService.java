@@ -13,6 +13,7 @@ import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,13 +28,14 @@ public class CourseContentService {
 
 
     public CourseContent addContentToModule(int moduleId, CourseContent content) {
+        if (content.getContentTitle() == null || content.getContentTitle().isEmpty()) {
+            throw new RuntimeException("Content title cannot be empty");
+        }
         CourseModule module = moduleRepository.findById(moduleId)
                 .orElseThrow(() -> new RuntimeException("Module not found"));
-
         content.setCourseModule(module);
         return contentRepository.save(content);
     }
-
     public CourseContent updateContent(int contentId, CourseContent updatedContent) {
         CourseContent existing = contentRepository.findById(contentId)
                 .orElseThrow(() -> new RuntimeException("Content not found"));
@@ -52,7 +54,15 @@ public class CourseContentService {
         contentRepository.deleteById(contentId);
     }
 
-    public List<CourseContent> getContentsByModuleId(int moduleId) {
-        return contentRepository.findByCourseModuleId(moduleId);
+    public List<CourseContent> getContentsByModuleId(int moduleId, Pageable pageable) {
+        return contentRepository.findByCourseModuleId(moduleId, pageable).getContent();
     }
-}
+    
+   
+    public List<CourseContent> addMultipleContentsToModule(int moduleId, List<CourseContent> contents) {
+        CourseModule module = moduleRepository.findById(moduleId)
+                .orElseThrow(() -> new RuntimeException("Module not found"));
+        contents.forEach(content -> content.setCourseModule(module));
+        return contentRepository.saveAll(contents);
+    }
+}//

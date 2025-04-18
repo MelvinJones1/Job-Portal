@@ -25,6 +25,7 @@ public class HrController {
 	@Autowired
 	private HrService hrService;
 	
+	 // Create a new HR profile with reference to an existing user and company.
 	@PostMapping("/add/{userId}/{companyId}")
     public Hr createHr(@PathVariable int userId,
                        @PathVariable int companyId,
@@ -34,33 +35,31 @@ public class HrController {
         
     }
 	
-	
+    // Get total number of jobs posted by a specific HR.
 	@GetMapping("/total-jobs/{hrId}")
 	public long getTotalJobsPosted(@PathVariable int hrId) throws InvalidIDException {
 	    return hrService.getTotalJobsByHr(hrId);
 	}
 	
 	
+    // Get total number of candidates hired for jobs posted by a specific HR.
 	@GetMapping("/total-hires/{hrId}")
 	public long getTotalHiredCandidates(@PathVariable int hrId) throws InvalidIDException {
 	    return hrService.getTotalHiredByHr(hrId);
 	}
 	
 	
+    // Get 3 most recent job postings by HR, sorted by created date.
 	@GetMapping("/recent-jobs/{hrId}")
 	public List<Job> getRecentJobs(@PathVariable int hrId) throws InvalidIDException {
 	    return hrService.getRecentJobs(hrId);
 	}
 
+    // Get 3 most recent upcoming interviews scheduled by HR.
+
 	@GetMapping("/recent-interviews/{hrId}")
 	public List<Interview> getRecentInterviews(@PathVariable int hrId) throws InvalidIDException {
 	    return hrService.getRecentInterviews(hrId);
 	}
-
-
-
-	
-	
-	
 
 }

@@ -4,6 +4,7 @@ package com.spring.rest_api.career_crafter.config;
 import java.io.IOException;
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatusCode;
@@ -11,7 +12,9 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.spring.rest_api.career_crafter.exception.InvalidInputException;
 import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandlerConfig {
@@ -25,6 +28,15 @@ public class GlobalExceptionHandlerConfig {
 				 			(e, 
 				 			HttpStatusCode.valueOf(400), 
 				 			e.getMessage()); 
+	 }
+	 
+	 @ExceptionHandler(InvalidInputException.class)
+	 public ErrorResponse handleInvalidInputException(InvalidInputException e) {
+	     logger.error("Invalid input: {}", e.getMessage());
+	     return ErrorResponse.create(
+	             e,
+	             HttpStatusCode.valueOf(400),
+	             e.getMessage());
 	 }
 	 
 	 @ExceptionHandler(RuntimeException.class)

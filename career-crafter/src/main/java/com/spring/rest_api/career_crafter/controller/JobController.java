@@ -34,23 +34,26 @@ public class JobController{
 	@Autowired
 	private ApplicationService applicationService;
 
-	
+    // Get all jobs 
 	@GetMapping("/all")
 	public List<Job> getAllJob() {
 		return jobService.getAllJob();
 		
 	}
 	
+    // HR posts a new job 
 	@PostMapping("/add/{hrId}")
 	public Job postJob(@PathVariable int hrId, @RequestBody Job job) throws InvalidIDException{
 	    // Ensure the HR exists
 	    Hr hr = hrService.findById(hrId);
 	            
 
-	    job.setHr(hr); // Associate job with HR
+	    job.setHr(hr); 
 	    return jobService.createJob(job);
 	}
 	
+	
+    // Get all jobs posted by a specific HR
 	@GetMapping("/hr/{hrId}")
 	public List<Job> fetchJobsByHr(@PathVariable int hrId) throws InvalidIDException{
 		
@@ -63,6 +66,7 @@ public class JobController{
 	}
 	
 	
+    // Get a single job by its ID
 	@GetMapping("/{jobId}")
 	public Job fetchJobById(@PathVariable int jobId) throws InvalidIDException {
 		
@@ -71,6 +75,7 @@ public class JobController{
 	}
 	
 	
+    // Update an existing job by its ID
 	@PutMapping("/update/{jobId}")
 	public Job editJob(@PathVariable int jobId, @RequestBody Job updatedJob) throws InvalidIDException {
 		
@@ -78,12 +83,14 @@ public class JobController{
 	    return jobService.updateJob(jobId, updatedJob);
 	}
 	
-	
+    // Delete a job by its ID
 	@DeleteMapping("/delete/{jobId}")
 	public String deleteJob(@PathVariable int jobId) throws InvalidIDException{
 	    return jobService.removeJob(jobId);
 	}
 	
+	
+    // Get count of applicants who applied for a specific job
 	@GetMapping("/{jobId}/applicant-count")
 	public int getApplicantsCountForJob(@PathVariable int jobId) throws InvalidIDException{
 	    return applicationService.countApplicantsForJob(jobId);

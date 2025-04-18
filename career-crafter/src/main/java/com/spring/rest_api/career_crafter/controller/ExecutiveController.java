@@ -18,6 +18,7 @@ public class ExecutiveController {
 	@Autowired
 	private ExecutiveService executiveService;
 	
+	// Create a new Executive linked to a user and company.
 	@PostMapping("/add/{userId}/{companyId}")
     public Executive createExecutive(@PathVariable int userId,
                                      @PathVariable int companyId,
