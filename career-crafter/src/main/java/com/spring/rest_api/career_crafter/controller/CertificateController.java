@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.rest_api.career_crafter.model.Certificate;
 import com.spring.rest_api.career_crafter.service.CertificateService;
 @RestController
-@RequestMapping("/api/certificta")
+@RequestMapping("/api/certificate")
 public class CertificateController {
 
 	 @Autowired
