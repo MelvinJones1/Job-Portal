@@ -6,13 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.Company;
 import com.spring.rest_api.career_crafter.model.Executive;
 import com.spring.rest_api.career_crafter.model.User;
+import com.spring.rest_api.career_crafter.repository.AuthRepository;
+import com.spring.rest_api.career_crafter.repository.CompanyRepository;
 import com.spring.rest_api.career_crafter.repository.ExecutiveRepository;
 
 @Service
 public class ExecutiveService {
+
+	@Autowired
+    private  CompanyRepository companyRepository;
+
+	@Autowired
+    private  AuthRepository authRepository;
 	
 	@Autowired
 	private ExecutiveRepository executiveRepository;
@@ -23,24 +32,18 @@ public class ExecutiveService {
 	@Autowired
 	private CompanyService companyService;
 
+	    public Executive createExecutive(Executive executive) throws InvalidIDException, InvalidUsernameException {
+	    	User savedUser = authService.signUp(executive.getUser());
 
-
-
-	    public Executive createExecutive(int userId, int companyId, Executive executive) throws InvalidIDException {
-	        User user = authService.findById(userId);
-	        if (!user.getRole().equalsIgnoreCase("EXECUTIVE")) {
+	        if (!savedUser.getRole().equalsIgnoreCase("EXECUTIVE")) {
 	            throw new RuntimeException("User must have EXECUTIVE role.");
 	        }
-
-	        Company company = companyService.getSingleCompany(companyId);
-
-	        executive.setUser(user);
+	        Company company = companyService.getSingleCompany(executive.getCompany().getId());
+	        executive.setUser(savedUser);
 	        executive.setCompany(company);
 
 	        return executiveRepository.save(executive);
 	    }
-
-
 
 	public Executive findById(int executiveId) throws InvalidIDException{
 		

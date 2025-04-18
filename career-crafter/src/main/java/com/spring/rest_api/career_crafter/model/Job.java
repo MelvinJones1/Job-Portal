@@ -57,6 +57,23 @@ public class Job {
 
     @ManyToOne
     private Hr hr; // HR who posted the job
+    
+    
+    public Job(int id, String title, String department, JobType jobType, String location,
+            String salaryRange, String description, String requirements, LocalDate applicationDeadline,
+            JobStatus status, Hr hr) {
+     this.id = id;
+     this.title = title;
+     this.department = department;
+     this.jobType = jobType;
+     this.location = location;
+     this.salaryRange = salaryRange;
+     this.description = description;
+     this.requirements = requirements;
+     this.applicationDeadline = applicationDeadline;
+     this.status = status;
+     this.hr = hr;
+ }
 
     // Getters and Setters
     public int getId() { return id; }

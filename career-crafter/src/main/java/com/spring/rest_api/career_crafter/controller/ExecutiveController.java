@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.Executive;
 import com.spring.rest_api.career_crafter.service.ExecutiveService;
 
@@ -19,11 +20,11 @@ public class ExecutiveController {
 	private ExecutiveService executiveService;
 	
 	// Create a new Executive linked to a user and company.
-	@PostMapping("/add/{userId}/{companyId}")
-    public Executive createExecutive(@PathVariable int userId,
-                                     @PathVariable int companyId,
-                                     @RequestBody Executive executive)throws InvalidIDException{
-        return executiveService.createExecutive(userId, companyId, executive);
+	@PostMapping("/add/")
+    public Executive createExecutive(@RequestBody Executive executive)throws InvalidIDException, InvalidUsernameException{
+		
+        return executiveService.createExecutive( executive);
+        
     }
 	
 

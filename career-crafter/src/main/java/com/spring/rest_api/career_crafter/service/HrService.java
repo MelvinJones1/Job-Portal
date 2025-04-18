@@ -11,16 +11,25 @@ import org.springframework.stereotype.Service;
 
 import com.spring.rest_api.career_crafter.enums.ApplicationStatus;
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.Application;
 import com.spring.rest_api.career_crafter.model.Company;
 import com.spring.rest_api.career_crafter.model.Hr;
 import com.spring.rest_api.career_crafter.model.Interview;
 import com.spring.rest_api.career_crafter.model.Job;
 import com.spring.rest_api.career_crafter.model.User;
+import com.spring.rest_api.career_crafter.repository.AuthRepository;
+import com.spring.rest_api.career_crafter.repository.CompanyRepository;
 import com.spring.rest_api.career_crafter.repository.HrRepository;
 
 @Service
 public class HrService {
+
+	@Autowired
+    private  AuthRepository authRepository;
+
+	@Autowired
+    private  CompanyRepository companyRepository;
 	
 	@Autowired
 	private HrRepository hrRepository;
@@ -39,6 +48,12 @@ public class HrService {
 	
 	@Autowired
 	private InterviewService interviewService;
+
+
+    HrService(CompanyRepository companyRepository, AuthRepository authRepository) {
+        this.companyRepository = companyRepository;
+        this.authRepository = authRepository;
+    }
 	
 
 
@@ -56,19 +71,21 @@ public class HrService {
 	
 
 	
-	public Hr createHr(int userId, int companyId, Hr hr) throws InvalidIDException {
-        User user = authService.findById(userId);
-        if (!user.getRole().equalsIgnoreCase("HR")) {
-            throw new RuntimeException("User must have HR role.");
-        }
+	public Hr createHr(Hr hr) throws InvalidIDException, InvalidUsernameException {
+		
+		User savedUser = authService.signUp(hr.getUser());
 
-        Company company = companyService.getSingleCompany(companyId);
+	    if (!savedUser.getRole().equalsIgnoreCase("HR")) {
+	        throw new RuntimeException("User must have HR role.");
+	    }
 
-        hr.setUser(user);
-        hr.setCompany(company);
-        hr.setCreatedAt(LocalDate.now());
+	    Company company = companyService.getSingleCompany(hr.getCompany().getId());
+	    
+	    hr.setUser(savedUser);
+	    hr.setCompany(company);
+	    hr.setCreatedAt(LocalDate.now());
 
-        return hrRepository.save(hr);
+	    return hrRepository.save(hr);
     }
 
 
@@ -148,6 +165,16 @@ public class HrService {
 
 	    // Return top 3
 	    return interviews.stream().limit(3).toList();
+	}
+
+
+
+	public Hr findByUsername(String username) throws InvalidIDException {
+	    Hr hr = hrRepository.findByUserUsername(username);
+	    if (hr == null) {
+	        throw new InvalidIDException("HR not found for username: " + username);
+	    }
+	    return hr;
 	}
 
 

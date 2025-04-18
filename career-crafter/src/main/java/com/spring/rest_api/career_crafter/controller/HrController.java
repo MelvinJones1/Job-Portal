@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.exception.InvalidUsernameException;
 import com.spring.rest_api.career_crafter.model.Hr;
 import com.spring.rest_api.career_crafter.model.Interview;
 import com.spring.rest_api.career_crafter.model.Job;
@@ -25,13 +26,11 @@ public class HrController {
 	@Autowired
 	private HrService hrService;
 	
-	 // Create a new HR profile with reference to an existing user and company.
-	@PostMapping("/add/{userId}/{companyId}")
-    public Hr createHr(@PathVariable int userId,
-                       @PathVariable int companyId,
-                       @RequestBody Hr hr)  throws InvalidIDException{
+	 // Add a new HR profile with reference to an existing user and company.
+	@PostMapping("/add/")
+    public Hr createHr(@RequestBody Hr hr)  throws InvalidIDException, InvalidUsernameException{
 		
-        return hrService.createHr(userId, companyId, hr);
+        return hrService.createHr(hr);
         
     }
 	

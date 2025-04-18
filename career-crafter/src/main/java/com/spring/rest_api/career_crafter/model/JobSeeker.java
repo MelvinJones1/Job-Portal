@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -26,48 +25,22 @@ public class JobSeeker {
 	private String location;
 	
 	private String university;
-	
+	   
 	private String degreeType;
 	
 	private String employmentStatus;
 	
 	private int yearsOfExperience;
 	
-	private String previouEmployer;
+	private String previousEmployer;
 	
 	private String resume;
 	
-	@ManyToOne
-	private Preference preferences;
+	@OneToOne
+	private Preference preference;
 	
 	@OneToOne
 	private User user;
-
-	public String getResume() {
-		return resume;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void setResume(String resume) {
-		this.resume = resume;
-	}
-
-	
-	
-	public Preference getPreferences() {
-		return preferences;
-	}
-
-	public void setPreferences(Preference preferences) {
-		this.preferences = preferences;
-	}
 
 	public int getId() {
 		return id;
@@ -92,8 +65,6 @@ public class JobSeeker {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
 
 	public String getLocation() {
 		return location;
@@ -135,13 +106,43 @@ public class JobSeeker {
 		this.yearsOfExperience = yearsOfExperience;
 	}
 
-	public String getPreviouEmployer() {
-		return previouEmployer;
+	public String getPreviousEmployer() {
+		return previousEmployer;
 	}
 
-	public void setPreviouEmployer(String previouEmployer) {
-		this.previouEmployer = previouEmployer;
+	public void setPreviousEmployer(String previousEmployer) {
+		this.previousEmployer = previousEmployer;
 	}
+
+	public String getResume() {
+		return resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+
+	public Preference getPreference() {
+		return preference;
+	}
+
+	public void setPreference(Preference preference) {
+		this.preference = preference;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public JobSeeker() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
-	
+		
 }
