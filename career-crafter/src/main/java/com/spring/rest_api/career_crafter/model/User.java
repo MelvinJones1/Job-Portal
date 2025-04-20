@@ -1,7 +1,9 @@
 package com.spring.rest_api.career_crafter.model;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "user_info")
 /* convert this User into UserDetails , so that spring gets extra details about user login*/
@@ -32,6 +33,28 @@ public class User implements UserDetails{
 	private String password; //findByPassword
 	
 	private String role;
+ 
+	
+	public User() { //JPA needs this
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(String username, String password, String role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
+	
+	public User(int id, String username, String password, String role) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 
 	public int getId() {
 		return id;
@@ -65,7 +88,6 @@ public class User implements UserDetails{
 		this.role = role;
 	}
 
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		/*convert role into authority using SimpleGrantedAuthority class */
@@ -78,8 +100,23 @@ public class User implements UserDetails{
 		return list;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, password, role, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return id == other.id && Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& Objects.equals(username, other.username);
+	} 
 	
 	
 }
-

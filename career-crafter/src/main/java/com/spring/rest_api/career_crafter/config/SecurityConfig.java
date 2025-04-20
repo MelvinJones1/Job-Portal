@@ -56,23 +56,22 @@ public class SecurityConfig {
 	                
 	                
 	                 
-	                .requestMatchers("/api/certificta/**").hasAuthority("INSTRUCTOR")
+	                .requestMatchers("/api/certificate/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/assignment/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/category/**").hasAuthority("INSTRUCTOR")
 	               .requestMatchers("/api/contents/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/modules/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/course/add").hasAuthority("INSTRUCTOR")
 	               .requestMatchers("/api/instructor/**").hasAuthority("INSTRUCTOR")
-	                .requestMatchers("/api/course/getAllCourses").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/course/update/{cId}").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/course/delete/{cId}").hasAuthority("INSTRUCTOR")
-	                .requestMatchers("/api/course/category/{category}").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/course/courses/search").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/reviews/getAll").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/reviews/course/{courseId}").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/enrollments/getByCategory/{categoryName}").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/enrollments/getByJobseeker/{name}").hasAuthority("INSTRUCTOR")
-	               .requestMatchers("/api/enrollments/getAll").hasAuthority("INSTRUCTOR") 
+	                .requestMatchers("/api/course/**").hasAuthority("INSTRUCTOR")
+	                .requestMatchers("/api/category/**").hasAuthority("INSTRUCTOR")
+	                .requestMatchers("/api/contents/**").hasAuthority("INSTRUCTOR")
+	                .requestMatchers("/api/modules/**").hasAuthority("INSTRUCTOR")
+	                
+	            
+	               .requestMatchers("/api/reviews/**").hasAuthority("INSTRUCTOR")
+	               
+	               .requestMatchers("/api/enrollments/**").hasAuthority("INSTRUCTOR") 
 	                
 	               
 			)

@@ -5,15 +5,18 @@ package com.spring.rest_api.career_crafter.controller;
 
 import com.spring.rest_api.career_crafter.model.CourseModule;
 
+
 import com.spring.rest_api.career_crafter.service.CourseModuleService;
 
-import ch.qos.logback.classic.Logger;
+
 
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,10 +48,20 @@ public class CourseModuleController {
       
     }
 
-    @GetMapping("/getmodules/{courseId}")
-    public List<CourseModule>getModulesByCourseId(@PathVariable int courseId) {
-        List<CourseModule> modules = moduleService.	getModulesByCourseId(courseId);
-        return modules;
+    @GetMapping("/getmodulesPaginated/{courseId}")
+    public ResponseEntity<?> getModulesByCourseId(@PathVariable int courseId,
+                                                           @RequestParam int page,
+                                                           @RequestParam int size) {
+        logger.info("Fetching modules for course ID {} with pagination", courseId);
+        Pageable pageable = PageRequest.of(page, size);
+        try {
+            List<CourseModule> modules = moduleService.getModulesByCourseIdPaginated(courseId, pageable);
+            return ResponseEntity.ok(modules);
+        } catch (Exception e) {
+            logger.error("Error fetching modules: {}", e.getMessage());
+            return ResponseEntity.status(500).body("Failed to fetch modules: " + e.getMessage());
+        }
     }
+    
 }
     

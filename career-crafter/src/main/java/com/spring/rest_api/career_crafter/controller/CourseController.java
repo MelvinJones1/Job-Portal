@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -43,14 +45,21 @@ public class CourseController {
 		 logger.info("course addedd success");//add the course
         return courseService.addCourse(course);
        
-    }
-	 @GetMapping("/getAllCourses")
-	    public List<Course> getAllCourses() { 
-		 
-		 //get all courses
-		 logger.info("gets all the courses");
-	        return courseService.getAllCourses();
-	    }
+    }@GetMapping("/getAllCourses")
+    public ResponseEntity<?> getAllCourses(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+logger.info("Fetching all courses with pagination");
+Pageable pageable = PageRequest.of(page, size);
+try {
+List<Course> courses = courseService.getAllCourses(pageable);
+return ResponseEntity.ok(courses);
+} catch (Exception e) {
+logger.error("Error fetching paginated courses: {}", e.getMessage());
+dto.setMessage("Error fetching paginated courses: " + e.getMessage());
+dto.setStatus(500);
+return ResponseEntity.status(500).body(dto);
+}
+}
 	 
 	@GetMapping("/get/{cId}")
 	public Course getSingleCourse(@PathVariable int cId) {
@@ -105,6 +114,18 @@ return ResponseEntity.status(400).body(dto);
 	   return courses;
 	}
 
-	
+	@GetMapping("/count")
+	public ResponseEntity<?> getCourseCount() {
+	    logger.info("Fetching total number of courses");
+	    try {
+	        long count = courseService.getCourseCount();
+	        return ResponseEntity.ok(count);
+	    } catch (Exception e) {
+	        logger.error("Error fetching course count: {}", e.getMessage());
+	        dto.setMessage("Error fetching course count: " + e.getMessage());
+	        dto.setStatus(500);
+	        return ResponseEntity.status(500).body(dto);
+	    }
+	}
 	
 }
