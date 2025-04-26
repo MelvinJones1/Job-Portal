@@ -5,13 +5,14 @@ import java.io.IOException;
 
 
 
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,93 +23,78 @@ import com.spring.rest_api.career_crafter.model.Instructor;
 import com.spring.rest_api.career_crafter.model.User;
 import com.spring.rest_api.career_crafter.repository.AuthRepository;
 import com.spring.rest_api.career_crafter.repository.InstructorRepository;
-
 @Service
 public class InstructorService {
 
-	@Autowired 
-	private AuthRepository authRepository;
-	@Autowired 
-	private InstructorRepository instructorRepository;
-	
-	
-		//get the instructor profile while logged in
-		public Instructor getInstructorProfile(String username)
-		{
-			
-			User user = authRepository.findByUsername(username);
-		        return instructorRepository.findByUser(user);
-		}
-		
-		//save the instructor profile
+    @Autowired
+    private AuthRepository authRepository;
 
+    @Autowired
+    private InstructorRepository instructorRepository;
+
+    // Get the instructor profile while logged in
+    public Instructor getInstructorProfile(String username) {
+        User user = authRepository.findByUsername(username);
+        return instructorRepository.findByUser(user);
+    }
+
+    // Save the instructor profile
     public Instructor createInstructorProfile(Instructor instructor, String username) {
         User user = authRepository.findByUsername(username);
         instructor.setUser(user);
         return instructorRepository.save(instructor);
     }
 
-    //get single Instructor
-    public Instructor getSingleInstructor(int id) throws InvalidIDException{
-		Optional<Instructor> optional =  instructorRepository.findById(id);
-		if(optional.isEmpty())
-			throw new InvalidIDException(" instructor ID given is Invalid...");
-		return optional.get();
-	}
-  //updtae the instructor
+    // Get single instructor
+    public Instructor getSingleInstructor(int id) throws InvalidIDException {
+        return instructorRepository.findById(id)
+                .orElseThrow(() -> new InvalidIDException("Instructor ID " + id + " is invalid."));
+    }
 
-  	public Instructor updateInstructorProfile(int insId, Instructor Newins) throws InvalidIDException {
-  	    // Check if the instructor exists
-  	    Instructor Oldins = instructorRepository.findById(insId)
-  	            .orElseThrow(() -> new InvalidIDException("Instructor with ID " + insId + " not found"));
+    // Update the instructor
+    public Instructor updateInstructorProfile(int insId, Instructor updatedInstructor) throws InvalidIDException {
+        Instructor existingInstructor = instructorRepository.findById(insId)
+                .orElseThrow(() -> new InvalidIDException("Instructor with ID " + insId + " not found."));
+        
+        // Update only allowed fields
+        existingInstructor.setFirstName(updatedInstructor.getFirstName());
+        existingInstructor.setLastName(updatedInstructor.getLastName());
+        existingInstructor.setEmail(updatedInstructor.getEmail());
+        existingInstructor.setMobileNumber(updatedInstructor.getMobileNumber());
+        existingInstructor.setProfileImagePath(updatedInstructor.getProfileImagePath());
+        existingInstructor.setCertifications(updatedInstructor.getCertifications());
+        
+        return instructorRepository.save(existingInstructor);
+    }
 
-  	    // Update fields  only those allowed to change
-  	    Oldins.setFirstName(Newins.getFirstName());
-  	    Oldins.setLastName(Newins.getLastName());
-  	    Oldins.setEmail(Newins.getEmail());
-  	    Oldins.setMobileNumber(Newins.getMobileNumber());
-  	    Oldins.setProfileImagePath(Newins.getProfileImagePath());
-  	    Oldins.setCertifications(Newins.getCertifications());
-  	    // Save the updated instructor
-  	    return instructorRepository.save(Oldins);
-  	}
-  	
-  	//delete the instructor
+    // Delete the instructor profile
+    public void deleteInstructorById(Instructor instructor) {
+        instructorRepository.delete(instructor);
+    }
 
-  	public void DeleteinstructorById(Instructor ins) {
-  		 instructorRepository.delete(ins);
-  		
-  	}
+    // Upload the image of the instructor
+    public Instructor uploadImage(MultipartFile file, int insId) throws IOException, InvalidIDException {
+        Instructor instructor = instructorRepository.findById(insId)
+                .orElseThrow(() -> new InvalidIDException("Instructor ID " + insId + " is invalid."));
 
-	public Instructor uploadImage(MultipartFile file,int Insid) throws IOException, InvalidIDException {
-		/*check if Ins-id is valid  if not there throws exception*/
-		Instructor instructor = instructorRepository.findById(Insid)
-				.orElseThrow(()->new InvalidIDException("Invalid INS-ID given.."));
-		//allowed formats of the image 
-		List<String> allowedExtensions = Arrays.asList("png","jpg","jpeg","gif","svg"); 
-		String originalFileName = file.getOriginalFilename(); 
-		System.out.println(originalFileName);
-		String extension= originalFileName.split("\\.")[1];
-		/*Check weather extension is allowed or not */
-		if( !(allowedExtensions.contains(extension))) {
-			throw new RuntimeException("Image Type Invalid");
-		}
-		
-		String uploadPath= "C:\\Users\\ragip\\OneDrive\\Documents\\JAVA FULL STACK HEX\\hexawareproject\\career-crafter\\uploads";
-		
-		/*Create directory *///Check if directory is present else create it
-		Files.createDirectories(Paths.get(uploadPath));
-		/*Define full path with folder and image name */
-		Path path = Paths.get(uploadPath + "\\" +originalFileName); 
-		/*Copy the image into uploads path */
-		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		/*Save this path in Database */
-		instructor.setProfileImagePath(path.toString());
-		return instructorRepository.save(instructor);
-	}
+        // Validate image type
+        List<String> allowedExtensions = Arrays.asList("png", "jpg", "jpeg", "gif", "svg");
+        String originalFileName = file.getOriginalFilename();
+        String extension = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
+        if (!allowedExtensions.contains(extension)) {
+            throw new RuntimeException("Invalid image type.");
+        }
 
+        // Define upload path
+        String uploadPath = "C:\\Users\\ragip\\OneDrive\\Documents\\JAVA FULL STACK HEX\\hexawareproject\\career-crafter\\uploads";
+        Files.createDirectories(Paths.get(uploadPath));
+        
+        // Save the image to the upload path
+        Path path = Paths.get(uploadPath, originalFileName);
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-
-	//create profile, get profile,delete ,updtae profile and upload image are the apis done for the instructor module
-		//we used the built in jpa methods
+        // Save the image path in the database
+        instructor.setProfileImagePath(path.toString());
+        return instructorRepository.save(instructor);
+    }
 }

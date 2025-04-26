@@ -8,28 +8,34 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class EnrollmentService {
 
     @Autowired
     private EnrollmentRepository enrollmentRepository;
 
+    // Get all enrollments with pagination
     public List<Enrollment> getAllEnrollmentsPaginated(Pageable pageable) {
         return enrollmentRepository.findAll(pageable).getContent(); // Extract content as List
     }
+
+    // Get enrollments by category
     public List<Enrollment> getEnrollmentsByCategory(String category) {
-        return enrollmentRepository.findByCourseCategory(category);
+        return enrollmentRepository.findByCourseCategory(category); // Fetch enrollments by category
     }
 
+    // Get enrollments by job seeker name
     public List<Enrollment> getEnrollmentsByJobSeekerName(String name) {
-        return enrollmentRepository.findByJobSeekerName(name);
-    }
-    public long getTotalEnrollments() {
-        return enrollmentRepository.count();
+        return enrollmentRepository.findByJobSeekerName(name); // Fetch enrollments by job seeker name
     }
 
+    // Get total number of enrollments
+    public long getTotalEnrollments() {
+        return enrollmentRepository.count(); // Count total enrollments
+    }
+
+    // Get count of completed enrollments
     public long getCompletedEnrollments() {
-        return enrollmentRepository.countByCompleted(true);
+        return enrollmentRepository.countByCompleted(true); // Count completed enrollments
     }
 }
