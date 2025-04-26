@@ -3,64 +3,56 @@ package com.spring.rest_api.career_crafter.service;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
 
+
 import com.spring.rest_api.career_crafter.model.Assignment;
 
 import com.spring.rest_api.career_crafter.repository.AssignmentRepository;
-import com.spring.rest_api.career_crafter.repository.CourseRepository;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 @Service
 public class AssignmentService {
 
     @Autowired
     private AssignmentRepository assignmentRepository;
-    @Autowired
-    private CourseRepository courseRepository;
+
+    // Add Assignment
     public Assignment addAssignment(Assignment assignment) {
         return assignmentRepository.save(assignment);
     }
 
-    public List<Assignment> getAllAssignments() {
-        return assignmentRepository.findAll();
+    // Get All Assignments with Pagination
+    public Page<Assignment> getAllAssignments(Pageable pageable) {
+        return assignmentRepository.findAll(pageable);
     }
 
-	public Assignment getSingleAssignment(int aId) {
-		Optional<Assignment> optional = assignmentRepository.findById(aId);
-		if(optional.isEmpty())
-			throw new RuntimeException("Invalid Assignment Id");
-		return optional.get();
-	}
-	
-	
-	
-	public Page<Assignment> getAllAssignments(Pageable pageable) {
-	    return assignmentRepository.findAll(pageable); // Default JPA method for pagination
-	}
-	
-	//update the Assignment
-		public Assignment updateTheAssignment(int aId, Assignment updateAssignment) throws InvalidIDException {
-	  	    // Check if the Assignment exists
-	  	    Assignment Oldassign = assignmentRepository.findById(aId)
-	  	            .orElseThrow(() -> new InvalidIDException("Assignent with ID " + aId + " not found"));
+    // Get Single Assignment by ID
+    public Assignment getSingleAssignment(int aId) throws InvalidIDException {
+        return assignmentRepository.findById(aId)
+                .orElseThrow(() -> new InvalidIDException("Assignment with ID " + aId + " not found."));
+    }
 
-	  	    // Update fields  only those allowed to change
-	  	    Oldassign.setDescription(updateAssignment.getDescription());
-	  	    Oldassign.setTitle(updateAssignment.getTitle());
-	  	    Oldassign.setUrl(updateAssignment.getUrl());
-	  	    Oldassign.setSubmissionDeadline(updateAssignment.getSubmissionDeadline());
-	  	   return assignmentRepository.save(Oldassign);
-	  	}
-	//delete the course 
-		public void DeleteAssignmentById(Assignment assignment) {
+    // Update Assignment
+    public Assignment updateTheAssignment(int aId, Assignment updateAssignment) throws InvalidIDException {
+        Assignment existingAssignment = assignmentRepository.findById(aId)
+                .orElseThrow(() -> new InvalidIDException("Assignment with ID " + aId + " not found."));
 
-	                     assignmentRepository.delete(assignment);
-			
-		}
+        // Update only allowed fields
+        existingAssignment.setTitle(updateAssignment.getTitle());
+        existingAssignment.setDescription(updateAssignment.getDescription());
+        existingAssignment.setUrl(updateAssignment.getUrl());
+        existingAssignment.setSubmissionDeadline(updateAssignment.getSubmissionDeadline());
+
+        return assignmentRepository.save(existingAssignment); // Save updated assignment
+    }
+
+    // Delete Assignment by ID
+    public void deleteAssignmentById(int aId) throws InvalidIDException {
+        Assignment existingAssignment = assignmentRepository.findById(aId)
+                .orElseThrow(() -> new InvalidIDException("Assignment with ID " + aId + " not found."));
+        assignmentRepository.delete(existingAssignment); // Perform deletion
+    }
 }

@@ -106,7 +106,30 @@ this.createdAt = LocalDate.now();
         return isEnrolled;
     }
 
-    public void setEnrolled(boolean isEnrolled) {
+    public Course(String title, String description, String category, String aboutTheCourse, String difficultyLevel,
+			LocalDate createdAt) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.aboutTheCourse = aboutTheCourse;
+		this.difficultyLevel = difficultyLevel;
+		this.createdAt = createdAt;
+	}
+
+	public Course(int id, String title, String description, String category, String aboutTheCourse,
+			String difficultyLevel, LocalDate createdAt) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.aboutTheCourse = aboutTheCourse;
+		this.difficultyLevel = difficultyLevel;
+		this.createdAt = createdAt;
+	}
+
+	public void setEnrolled(boolean isEnrolled) {
         this.isEnrolled = isEnrolled;
     }
 

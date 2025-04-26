@@ -8,5 +8,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseReviewRepository extends JpaRepository<CourseReview, Integer> {
-	List<CourseReview> findByCourseId(int courseId);
+    List<CourseReview> findByCourseId(int courseId); // Find reviews by course ID
 }
