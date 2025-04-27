@@ -12,8 +12,10 @@ import com.spring.rest_api.career_crafter.model.Course;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
-	List<Course> findByCategory(String category);
+	
 	long count();
 	List<Course> findByTitle(String title);
+	List<Course> findByCategoryTitle(String categoryTitle);
+	List<Course> findByTitleContaining(String title);
 
 }

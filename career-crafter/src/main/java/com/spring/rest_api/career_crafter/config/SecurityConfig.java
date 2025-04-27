@@ -53,24 +53,17 @@ public class SecurityConfig {
 	                .requestMatchers("/api/application/add/{jsId}/{jobId}").hasAuthority("JOBSEEKER")
 	                .requestMatchers("/api/application/count/total/{jsId}").hasAuthority("JOBSEEKER")
 	                .requestMatchers("/api/application/count-by-status/{jsId}").hasAuthority("JOBSEEKER")
-	                
-	                
-	                 
 	                .requestMatchers("/api/certificate/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/assignment/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/category/**").hasAuthority("INSTRUCTOR")
 	               .requestMatchers("/api/contents/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/modules/**").hasAuthority("INSTRUCTOR")
-	                .requestMatchers("/api/course/add").hasAuthority("INSTRUCTOR")
 	               .requestMatchers("/api/instructor/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/course/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/category/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/contents/**").hasAuthority("INSTRUCTOR")
 	                .requestMatchers("/api/modules/**").hasAuthority("INSTRUCTOR")
-	                
-	            
 	               .requestMatchers("/api/reviews/**").hasAuthority("INSTRUCTOR")
-	               
 	               .requestMatchers("/api/enrollments/**").hasAuthority("INSTRUCTOR") 
 	                
 	               

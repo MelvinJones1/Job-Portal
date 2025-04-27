@@ -2,7 +2,6 @@ package com.spring.rest_api.career_crafter.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-
 @Entity
 public class Course {
 
@@ -15,18 +14,8 @@ public class Course {
 
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false) // or no default
-    private String category;
 
-    public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	@Column(nullable = false)
+    @Column(nullable = false)
     private String aboutTheCourse;
 
     @Column(nullable = false)
@@ -37,23 +26,11 @@ public class Course {
 
     private boolean isEnrolled = false;
 
-    public Course() {
-        // empty constructor required by JPA
-    }
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    private CourseCategory category;
 
-
-    public Course(String title, String description, String aboutTheCourse,
-            String difficultyLevel, CourseCategory courseCategory, Instructor instructor) {
-this.title = title;
-this.description = description;
-this.aboutTheCourse = aboutTheCourse;
-this.difficultyLevel = difficultyLevel;
-this.createdAt = LocalDate.now();
-}
-
-  
-
-
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -106,32 +83,45 @@ this.createdAt = LocalDate.now();
         return isEnrolled;
     }
 
-    public Course(String title, String description, String category, String aboutTheCourse, String difficultyLevel,
-			LocalDate createdAt) {
+    public void setEnrolled(boolean isEnrolled) {
+        this.isEnrolled = isEnrolled;
+    }
+
+    public CourseCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(CourseCategory category) {
+        this.category = category;
+    }
+
+	public Course() {
 		super();
-		this.title = title;
-		this.description = description;
-		this.category = category;
-		this.aboutTheCourse = aboutTheCourse;
-		this.difficultyLevel = difficultyLevel;
-		this.createdAt = createdAt;
+		// TODO Auto-generated constructor stub
 	}
 
-	public Course(int id, String title, String description, String category, String aboutTheCourse,
-			String difficultyLevel, LocalDate createdAt) {
+	public Course(int id, String title, String description, String aboutTheCourse, String difficultyLevel,
+			LocalDate createdAt, boolean isEnrolled, CourseCategory category) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.category = category;
 		this.aboutTheCourse = aboutTheCourse;
 		this.difficultyLevel = difficultyLevel;
 		this.createdAt = createdAt;
+		this.isEnrolled = isEnrolled;
+		this.category = category;
 	}
 
-	public void setEnrolled(boolean isEnrolled) {
-        this.isEnrolled = isEnrolled;
-    }
-
-   
+	public Course(String title, String description, String aboutTheCourse, String difficultyLevel, LocalDate createdAt,
+			boolean isEnrolled, CourseCategory category) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.aboutTheCourse = aboutTheCourse;
+		this.difficultyLevel = difficultyLevel;
+		this.createdAt = createdAt;
+		this.isEnrolled = isEnrolled;
+		this.category = category;
+	}
 }
