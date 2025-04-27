@@ -1,0 +1,1473 @@
+{
+	"info": {
+		"_postman_id": "5232c3f8-5f3c-425b-8fc4-c6b3ca61cbc5",
+		"name": "careercrafter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43521880",
+		"_collection_link": "https://nani-200153.postman.co/workspace/Nani's-Workspace~09adff33-00b1-4c05-8f74-d837aadc2bbb/collection/43521880-5232c3f8-5f3c-425b-8fc4-c6b3ca61cbc5?action=share&source=collection_link&creator=43521880"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"karthik1\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"JOBSEEKER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Venkatesh1\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"INSTRUCTOR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"melvin\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"HR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"melvin1\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"EXECUTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"karthik\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"JOBSEEKER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/token/generate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Venkatesh\",\r\n    \"password\":\"1234\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/auth/token/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"token",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/auth/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2giLCJleHAiOjE3NDU4MTI2MzgsImlhdCI6MTc0NTcyNjIzOH0.EKkoRoWpBArjjuH7cIJc-xbeG9-kRtz_PbT9B33hJS8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/instructor/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2giLCJleHAiOjE3NDU4MTI5NTUsImlhdCI6MTc0NTcyNjU1NX0.-TLJslZ0mohHgzdf37jJ5tCn0pjnfwaLr_l46MF3iOU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Nani\",\r\n  \"lastName\": \"Ragipati\",\r\n  \"email\": \"Nani@gmail.com\",\r\n  \"mobileNumber\": \"8985554001\",\r\n  \"highestQualification\": \"b.eece\",\r\n  \"certifications\": \"Java Certified\",\r\n  \"profileImagePath\": \"/images/logo.png\",\r\n  \"user\": {\r\n    \"username\": \"Venkateshhh\",\r\n    \"password\": \"1234\",\r\n    \"role\": \"INSTRUCTOR\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/instructor/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"instructor",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/instructor/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2giLCJleHAiOjE3NDU4MTI5NTUsImlhdCI6MTc0NTcyNjU1NX0.-TLJslZ0mohHgzdf37jJ5tCn0pjnfwaLr_l46MF3iOU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Venkatesh\",\r\n  \"lastName\": \"Ragipati\",\r\n  \"email\": \"venkatesh@gmail.com\",\r\n  \"mobileNumber\": \"8985554001\",\r\n  \"highestQualification\": \"b.eece\",\r\n  \"certifications\": \"Java Certified\",\r\n  \"profileImagePath\": \"/images/logo.png\",\r\n  \"user\": {\r\n    \"username\": \"Venkatesh_instructor\",\r\n    \"password\": \"1234\",\r\n    \"role\": \"INSTRUCTOR\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/instructor/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"instructor",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/instructor/getProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/instructor/getProfile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"instructor",
+						"getProfile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/instructor/update/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Venkatesh Updated\",\r\n  \"lastName\": \"Ragipati Updated\",\r\n  \"email\": \"venkatesh.updated@gmail.com\",\r\n  \"mobileNumber\": \"9999999999\",\r\n  \"highestQualification\": \"M.Tech\",\r\n  \"certifications\": \"AWS Certified\",\r\n  \"profileImagePath\": \"/images/updated_logo.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/instructor/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"instructor",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/instructor/delete/profile/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/instructor/delete/profile/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"instructor",
+						"delete",
+						"profile",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Introduction to Java\",\r\n  \"description\": \"A beginner-friendly course on Java programming.\",\r\n  \"category\": \"Programming\",\r\n  \"aboutTheCourse\": \"This course covers basic to advanced Java concepts.\",\r\n  \"difficultyLevel\": \"Beginner\",\r\n  \"createdAt\": \"2025-04-27\",\r\n  \"isEnrolled\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/course/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Introduction to ML\",\r\n  \"description\": \"A beginner-friendly course on Java programming.\",\r\n  \"category\": \"IT\",\r\n  \"aboutTheCourse\": \"This course covers basic to advanced Java concepts.\",\r\n  \"difficultyLevel\": \"Beginner\",\r\n  \"createdAt\": \"2025-04-27\",\r\n  \"isEnrolled\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/course/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/getAllCourses?page=0&size=5",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/course/getAllCourses?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"getAllCourses"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/get/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/course/get/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"get",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/update/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Advanced Java\",\r\n  \"description\": \"An advanced-level course on Java programming.\",\r\n  \"category\": \"Programming\",\r\n  \"aboutTheCourse\": \"This course includes multithreading, collections, and design patterns.\",\r\n  \"difficultyLevel\": \"Advanced\",\r\n  \"createdAt\": \"2025-04-27\",\r\n  \"isEnrolled\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/course/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/category/Programming",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/course/category/Programming",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"category",
+						"Programming"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/courses/search?title=Java",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/course/courses/search?title=Java",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"courses",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Java"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/count",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/course/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/modules/update/3",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Module 3: aintermediate of Java\",\r\n  \"url\": \"http://example.com/java-basics\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/modules/update/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"modules",
+						"update",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/modules/delete/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/modules/delete/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"modules",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/modules/getmodulesPaginated/1?page=0&size=5",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/modules/getmodulesPaginated/1?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"modules",
+						"getmodulesPaginated",
+						"1"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/course/add?categoryId=1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Advanced Java\",\r\n  \"description\": \"Learn advanced-level Java programming.\",\r\n  \"aboutTheCourse\": \"This course covers multithreading, collections, and design patterns.\",\r\n  \"difficultyLevel\": \"Advanced\",\r\n  \"createdAt\": \"2025-04-27\",\r\n  \"isEnrolled\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/course/add?categoryId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"course",
+						"add"
+					],
+					"query": [
+						{
+							"key": "categoryId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8081/api/category/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"it\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/category/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"category",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/category/getAll?page=0&size=5",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/category/getAll?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"category",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/category/get/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/category/get/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"category",
+						"get",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/category/update/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"intro to IT\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/category/update/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"category",
+						"update",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/category/delete/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/category/delete/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"category",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/assignment/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Database Design Assignment\",\r\n  \"description\": \"Design a relational database for an e-commerce system.\",\r\n  \"url\": \"https://example.com/db-assignment\",\r\n  \"submissionDeadline\": \"2025-05-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/assignment/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"assignment",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/assignment?page=0&size=5",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/assignment?page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"assignment"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/assignment/get/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/assignment/get/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"assignment",
+						"get",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/assignment/update/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Updated Database Design Assignment\",\r\n  \"description\": \"Design a relational database for an online shopping platform.\",\r\n  \"url\": \"https://example.com/updated-db-assignment\",\r\n  \"submissionDeadline\": \"2025-05-15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/enrollments/getByCategory/java",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enrollments",
+						"getByCategory",
+						"java"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/contents/add/module/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contentTitle\": \"Introduction to Spring Boot\",\r\n  \"contentUrl\": \"https://example.com/spring-boot-intro\",\r\n  \"assignment\": {\r\n    \"id\": 1,\r\n    \"title\":\"nill\",\r\n     \"description\": \"hwllo\",\r\n        \"url\": \"sjdvnlsfa\",\r\n        \"submissionDeadline\": 1101\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/contents/add/module/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"contents",
+						"add",
+						"module",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/contents/update/3",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contentTitle\": \"Updated Content Title\",\r\n  \"contentUrl\": \"https://example.com/updated-content\",\r\n  \"assignment\": {\r\n    \"id\": 1\r\n  },\r\n  \"courseModule\": {\r\n    \"id\": 1\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/contents/update/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"contents",
+						"update",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://example.com/updated-content",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://example.com/updated-content",
+					"protocol": "https",
+					"host": [
+						"example",
+						"com"
+					],
+					"path": [
+						"updated-content"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/enrollments/getAll?page=0&size=10",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/enrollments/getAll?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enrollments",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/enrollments/count",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/enrollments/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"enrollments",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/reviews/getAll?page=0&size=10",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/reviews/getAll?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"reviews",
+						"getAll"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/reviews/course/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2hfaW5zdHJ1Y3RvciIsImV4cCI6MTc0NTgxNDEzNSwiaWF0IjoxNzQ1NzI3NzM1fQ.RrjpsI5WSTX6zfbpjGgCyesvGLyt2dLumFbdlR8kp1Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/reviews/course/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"reviews",
+						"course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
