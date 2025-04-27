@@ -1,4 +1,3 @@
-
 package com.spring.rest_api.career_crafter.controller;
 
 import java.util.List;
@@ -9,19 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
-
 import com.spring.rest_api.career_crafter.model.CourseCategory;
 import com.spring.rest_api.career_crafter.service.CourseCategoryService;
 
@@ -34,13 +23,13 @@ public class CourseCategoryController {
 
     Logger logger = LoggerFactory.getLogger("CourseCategoryController");
 
-    // Add category
+    // Add a category
     @PostMapping("/add")
     public CourseCategory addCategory(@RequestBody CourseCategory category) {
         logger.info("Adding a new category.");
         CourseCategory savedCategory = categoryService.addCategory(category);
         logger.info("Added the category successfully: {}", savedCategory);
-        return savedCategory; // Returning the created category directly
+        return savedCategory;
     }
 
     // Get all categories with pagination
@@ -50,31 +39,31 @@ public class CourseCategoryController {
         Pageable pageable = PageRequest.of(page, size);
         List<CourseCategory> categories = categoryService.getAllCategories(pageable);
         logger.info("Fetched {} categories.", categories.size());
-        return categories; // Returning the list of categories directly
+        return categories;
     }
 
-    // Get course category by ID
+    // Get a course category by ID
     @GetMapping("/get/{catId}")
     public CourseCategory getById(@PathVariable int catId) throws InvalidIDException {
         logger.info("Fetching category with ID: {}", catId);
-        return categoryService.getById(catId); // Throws InvalidIDException if not found
+        return categoryService.getById(catId);
     }
 
-    // Update the course category
+    // Update a course category
     @PutMapping("/update/{catId}")
     public CourseCategory updateTheCategory(@PathVariable int catId, @RequestBody CourseCategory updateCC) throws InvalidIDException {
         logger.info("Updating category with ID: {}", catId);
         CourseCategory updatedCategory = categoryService.updateTheCategory(catId, updateCC);
         logger.info("Updated category successfully: {}", updatedCategory);
-        return updatedCategory; // Returning the updated category directly
+        return updatedCategory;
     }
 
-    // Delete the course category by ID
+    // Delete a course category by ID
     @DeleteMapping("/delete/{cId}")
     public void deleteCategoryById(@PathVariable int cId) throws InvalidIDException {
         logger.info("Deleting category with ID: {}", cId);
         CourseCategory category = categoryService.getSingleCategory(cId);
-        categoryService.deleteCategoryById(category); // Exception is thrown if ID is invalid
+        categoryService.deleteCategoryById(category);
         logger.info("Deleted category with ID: {}", cId);
     }
 }

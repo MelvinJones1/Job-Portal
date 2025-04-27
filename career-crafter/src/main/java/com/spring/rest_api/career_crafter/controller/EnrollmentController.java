@@ -27,12 +27,12 @@ public class EnrollmentController {
     org.slf4j.Logger logger = LoggerFactory.getLogger("EnrollmentController");
 
     // Get all enrollments with pagination
-    @GetMapping("/getAll")
-    public List<Enrollment> getAllEnrollments(@RequestParam int page, @RequestParam int size) {
-        logger.info("Fetching all enrollments with pagination.");
-        Pageable pageable = PageRequest.of(page, size);
-        return enrollmentService.getAllEnrollmentsPaginated(pageable);
-    }
+	    @GetMapping("/getAll")
+	    public List<Enrollment> getAllEnrollments(@RequestParam int page, @RequestParam int size) {
+	        logger.info("Fetching all enrollments with pagination.");
+	        Pageable pageable = PageRequest.of(page, size);
+	        return enrollmentService.getAllEnrollmentsPaginated(pageable);
+	    }
 
     // Get enrollments by category
     @GetMapping("/getByCategory/{categoryName}")

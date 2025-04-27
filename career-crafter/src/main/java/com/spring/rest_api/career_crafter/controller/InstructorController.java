@@ -35,33 +35,24 @@ public class InstructorController {
 
     org.slf4j.Logger logger = LoggerFactory.getLogger("InstructorController");
 
-    // Get the details of the instructor profile
     @GetMapping("/getProfile")
     public Instructor getInstructorProfile(Principal principal) {
-        logger.info("Fetching the instructor profile.");
+        logger.info("Fetching the instructor profile for: {}", principal.getName());
         String username = principal.getName();
         return instructorService.getInstructorProfile(username);
     }
 
-    // Create the profile of the instructor
-    @PostMapping("/createprofile")
-    public Instructor createInstructorProfile(@RequestBody Instructor instructor, Principal principal) {
-        logger.info("Creating instructor profile.");
-        if (instructor.getFirstName() == null || instructor.getFirstName().isEmpty()) {
-            throw new RuntimeException("Instructor name cannot be empty.");
-        }
-        String username = principal.getName();
-        return instructorService.createInstructorProfile(instructor, username);
+    @PostMapping("/add")
+    public Instructor addInstructor(@RequestBody Instructor instructor) throws InvalidUsernameException {
+        logger.info("Adding a new instructor: {}", instructor.getFirstName());
+        return instructorService.addInstructor(instructor);
     }
-
-    // Update the instructor profile
     @PutMapping("/update/{insId}")
     public Instructor updateInstructorProfile(@PathVariable int insId, @RequestBody Instructor updatedInstructor) throws InvalidIDException {
         logger.info("Updating the instructor profile with ID: {}", insId);
         return instructorService.updateInstructorProfile(insId, updatedInstructor);
     }
 
-    // Delete the instructor profile by ID
     @DeleteMapping("/delete/profile/{insId}")
     public void deleteInstructorById(@PathVariable int insId) throws InvalidIDException {
         logger.info("Deleting the instructor profile with ID: {}", insId);
@@ -70,7 +61,6 @@ public class InstructorController {
         logger.info("Instructor profile deleted successfully.");
     }
 
-    // Upload the image of the instructor
     @PostMapping("/image/upload/{Insid}")
     public Instructor uploadImage(@PathVariable int Insid, @RequestParam MultipartFile file) throws IOException, InvalidIDException {
         logger.info("Uploading image for instructor with ID: {}", Insid);

@@ -18,10 +18,8 @@ public class EnrollmentService {
     public List<Enrollment> getAllEnrollmentsPaginated(Pageable pageable) {
         return enrollmentRepository.findAll(pageable).getContent(); // Extract content as List
     }
-
-    // Get enrollments by category
-    public List<Enrollment> getEnrollmentsByCategory(String category) {
-        return enrollmentRepository.findByCourseCategory(category); // Fetch enrollments by category
+    public List<Enrollment> getEnrollmentsByCategory(String categoryName) {
+        return enrollmentRepository.findByCourseCategoryTitle(categoryName); // Fetch enrollments by category title
     }
 
     // Get enrollments by job seeker name
