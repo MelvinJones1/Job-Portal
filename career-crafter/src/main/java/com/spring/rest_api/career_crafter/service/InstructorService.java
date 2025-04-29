@@ -106,7 +106,7 @@ public class InstructorService {
     public Instructor addInstructor(Instructor instructor) throws InvalidUsernameException {
         User user = instructor.getUser();
         user.setRole("INSTRUCTOR");
-        user = authService.signUp(user);
+        user = authService.customerSignUp(user);
         instructor.setUser(user);
         return instructorRepository.save(instructor);
     }

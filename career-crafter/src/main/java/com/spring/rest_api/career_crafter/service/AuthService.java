@@ -29,7 +29,7 @@ public class AuthService {
 		}
 		/*Give role USER_DEFAULT if not provided */
 		if(user.getRole() == null)
-			user.setRole("USER_DEFAULT");
+			user.setRole(user.getRole());
 		
 		//encode the password 
 		String encodedPass = bcrypt.encode(user.getPassword());
@@ -48,7 +48,26 @@ public class AuthService {
 		return optional.get();
 		
 		}
-	
+
+	public User customerSignUp(User user) throws InvalidUsernameException {
+		//check if Username is unique 
+		User user1 =  authRepository.findByUsername(user.getUsername());
+		if(user1 != null) { 
+			//if user exists it will be not null. if its a new username then it will be null 
+			throw new InvalidUsernameException("Username already exists");
+		}
+		/*Give role USER_DEFAULT if not provided */
+		if(user.getRole() == null)
+			user.setRole("USER_DEFAULT");
+		
+		//encode the password 
+		String encodedPass = bcrypt.encode(user.getPassword());
+		
+		//attach encoded pass to user 
+		user.setPassword(encodedPass);
+		
+		return authRepository.save(user);
+	}
 	
 
 }
