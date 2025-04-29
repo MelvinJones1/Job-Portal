@@ -103,11 +103,9 @@ public class InstructorService {
         return instructorRepository.save(instructor);
     }
 
-    public Instructor addInstructor(Instructor instructor) throws InvalidUsernameException {
-        User user = instructor.getUser();
-        user.setRole("INSTRUCTOR");
-        user = authService.signUp(user);
-        instructor.setUser(user);
+    public Instructor addInstructor(Instructor instructor) {
+        // Save the instructor object to the database
+        // Since the instructor already has the user linked, it will save both the user and instructor
         return instructorRepository.save(instructor);
     }
 

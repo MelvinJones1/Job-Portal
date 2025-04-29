@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import com.spring.rest_api.career_crafter.service.MyUserService;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class AuthController {
 
 	@Autowired
@@ -38,15 +40,12 @@ public class AuthController {
 	//added the loggers for the authcontroller class
 	Logger logger =  LoggerFactory.getLogger("AuthController"); 
 	
+
 	@PostMapping("/signup")
 	public User signUp(@RequestBody User user) throws InvalidUsernameException {
-		//logs for signup
-		logger.info("signup is in progress for user"+user.getUsername());
+		logger.info("Sign up in progress for User " + user.getUsername()); 
 		return authService.signUp(user);
 	}
-	
-	
-	
 	
 	@PostMapping("/login")
 	public UserDetails login(Principal principal) {
@@ -77,6 +76,7 @@ public class AuthController {
 		dto.setExpiry(jwtUtil.extractExpiration(token).toString());
 		logger.info("Token generated for User " + user.getUsername()); 
 		logger.warn("Token will expiry On " + jwtUtil.extractExpiration(token).toString());
+		 
 		return dto; 
 	}
 	
@@ -86,6 +86,15 @@ public class AuthController {
 		return myUserService.loadUserByUsername(username);
 	}
 	
+	/*On the basis of current password , u can let them reset the password  */
+	@PostMapping("/reset")
+	public void resetPassword(Principal principal, @RequestBody User user) {
+		/* read username from principal and fetch User details from DB */
+		
+		/* then update the old password in fetched user with new password*/
+		
+		/*Save the new User in DB */
+	}
 	
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.spring.rest_api.career_crafter.model.User;
 import com.spring.rest_api.career_crafter.repository.AuthRepository;
 @Service
 public class MyUserService implements UserDetailsService{
@@ -33,6 +34,12 @@ public class MyUserService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return authRepository.findByUsername(username);
+	    System.out.println("Attempting to load user by username: " + username);  // Add logging
+	    User user = authRepository.findByUsername(username);
+	    if (user == null) {
+	        System.out.println("User not found: " + username);  // Add logging
+	        throw new UsernameNotFoundException("User not found with username: " + username);
+	    }
+	    return user;
 	}
 }

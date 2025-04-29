@@ -32,48 +32,45 @@ public class JwtFilter extends OncePerRequestFilter{
 	
 	@Autowired
 	private MyUserService myUserService ;
-	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, 
-			HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		 try {
-		/*
-		 * using request, i will take token from spring 
-		 * using jwtUtil, i vl decode that token: username 
-		 * using userSecurityService, i will fetch user details by username
-		 * role..
-		 * */
-		final String authorizationHeader = request.getHeader("Authorization");
-		
-		 String username = null;
-	     String jwt = null;
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	    throws ServletException, IOException {
+	    try {
+	        final String authorizationHeader = request.getHeader("Authorization");
+	        System.out.println("Authorization Header: " + authorizationHeader);
+
+	        String username = null;
+	        String jwt = null;
 
 	        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 	            jwt = authorizationHeader.substring(7);
 	            username = jwtUtil.extractUsername(jwt);
 	        }
-	        
-	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
+	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 	            UserDetails userDetails = this.myUserService.loadUserByUsername(username);
+	            System.out.println("Extracted Username from Token: " +username);
+	            System.out.println("Username from DB: " + userDetails.getUsername());
 
 	            if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
-
 	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
 	                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-	                usernamePasswordAuthenticationToken
-	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+	                usernamePasswordAuthenticationToken.setDetails(
+	                        new WebAuthenticationDetailsSource().buildDetails(request));
 	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 	            }
-	            
+	            else {
+	                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	                response.getWriter().write("Access Denied: Invalid Token");
+	                return;
+	            }
 	        }
 	        filterChain.doFilter(request, response);
-		 }
-		 catch(Exception e) {
-			 System.out.println(e.getMessage());
-			 //define global exception handler... todo 
-		 }
+	    }
+	    catch(Exception e) {
+	        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	        response.getWriter().write("Access Denied: " + e.getMessage());
+	        return;
+	    }
 	}
-
 }

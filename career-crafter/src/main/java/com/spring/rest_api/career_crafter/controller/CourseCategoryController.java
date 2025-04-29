@@ -16,6 +16,7 @@ import com.spring.rest_api.career_crafter.service.CourseCategoryService;
 
 @RestController
 @RequestMapping("/api/category")
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class CourseCategoryController {
 
     @Autowired

@@ -21,23 +21,22 @@ public class AuthService {
 	private BCryptPasswordEncoder bcrypt;
 	
 	public User signUp(User user) throws InvalidUsernameException {
-		//check if Username is unique 
-		User user1 =  authRepository.findByUsername(user.getUsername());
-		if(user1 != null) { 
-			//if user exists it will be not null. if its a new username then it will be null 
-			throw new InvalidUsernameException("Username already exists");
-		}
-		/*Give role USER_DEFAULT if not provided */
-		if(user.getRole() == null)
-			user.setRole("USER_DEFAULT");
-		
-		//encode the password 
-		String encodedPass = bcrypt.encode(user.getPassword());
-		
-		//attach encoded pass to user 
-		user.setPassword(encodedPass);
-		
-		return authRepository.save(user);
+	    // Check if Username is unique 
+	    User existingUser = authRepository.findByUsername(user.getUsername());
+	    if (existingUser != null) { 
+	        throw new InvalidUsernameException("Username already exists");
+	    }
+
+	    // Set default role if not provided
+	    if (user.getRole() == null)
+	        user.setRole(user.getRole());  // Set the role to INSTRUCTOR if not already set
+
+	    // Encode the password
+	    String encodedPass = bcrypt.encode(user.getPassword());
+	    user.setPassword(encodedPass);
+
+	    // Save and return the user
+	    return authRepository.save(user);
 	}
 
 	public User findById (int userId)  throws InvalidIDException{
@@ -48,7 +47,25 @@ public class AuthService {
 		return optional.get();
 		
 		}
-	
+
+	public User customerSignUp(User user) throws InvalidUsernameException {
+	    // Check if Username is unique 
+	    User existingUser = authRepository.findByUsername(user.getUsername());
+	    if (existingUser != null) { 
+	        throw new InvalidUsernameException("Username already exists");
+	    }
+
+	    // Set default role if not provided
+	    if (user.getRole() == null)
+	        user.setRole("ROLE_INSTRUCTOR");  // Set the role to INSTRUCTOR if not already set
+
+	    // Encode the password
+	    String encodedPass = bcrypt.encode(user.getPassword());
+	    user.setPassword(encodedPass);
+
+	    // Save and return the user
+	    return authRepository.save(user);
+	}
 	
 
 }
