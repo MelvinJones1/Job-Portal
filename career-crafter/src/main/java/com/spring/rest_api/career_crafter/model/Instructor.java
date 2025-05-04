@@ -8,7 +8,12 @@
 	@Table(name = "course_instructor")
 	public class Instructor {
 	
-	    @Id
+	    public Instructor() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+
+		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private int id;
 	
@@ -20,12 +25,12 @@
 	    @Column(nullable = false)
 	    private String email;
 	
-	
-	    @Column(nullable=false)
+	    @Column(nullable = true)
 	    private String mobileNumber;
 	
-	    @Column(nullable = false)
+	    @Column(nullable = true)
 	    private String highestQualification;
+	    @Column(nullable = true)
 	    private String certifications;
 	    public String getFirstName() {
 			return firstName;
@@ -51,7 +56,7 @@
 			this.profileImagePath = profileImagePath;
 		}
 	
-		@Column(nullable = false)
+		@Column(nullable = true)
 	    private String profileImagePath;
 		@OneToOne
 		private User user;

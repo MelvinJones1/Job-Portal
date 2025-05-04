@@ -12,5 +12,5 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
     List<Enrollment> findByJobSeekerName(String name);
     long count();
     long countByCompleted(boolean completed);
-	List<Enrollment> findByCourseCategoryTitle(String categoryTitle);
+	List<Enrollment> findByCourseCategory(String categoryTitle);
 }

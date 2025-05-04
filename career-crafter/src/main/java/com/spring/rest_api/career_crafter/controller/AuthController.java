@@ -9,11 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.spring.rest_api.career_crafter.config.JwtUtil;
 import com.spring.rest_api.career_crafter.dto.TokenDto;
@@ -24,68 +20,94 @@ import com.spring.rest_api.career_crafter.service.MyUserService;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = {"http://localhost:5173"}) // Allow frontend on localhost:5173 to interact with backend
 public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
 	@Autowired
 	private AuthService authService;
+
 	@Autowired
 	private MyUserService myUserService;
+
 	@Autowired
 	private JwtUtil jwtUtil;
-	
-	//added the loggers for the authcontroller class
-	Logger logger =  LoggerFactory.getLogger("AuthController"); 
-	
+
+	// Logger instance to capture activity for debugging and monitoring
+	Logger logger = LoggerFactory.getLogger("AuthController");
+
+	/**
+	 * POST /signup - Register a new user
+	 * Steps:
+	 * 1. Accept User object from request body.
+	 * 2. Pass to AuthService for validation and saving.
+	 * 3. Log the attempt and return saved User object.
+	 */
 	@PostMapping("/signup")
 	public User signUp(@RequestBody User user) throws InvalidUsernameException {
-		//logs for signup
-		logger.info("signup is in progress for user"+user.getUsername());
-		return authService.signUp(user);
+		logger.info("Signup is in progress for user: " + user.getUsername());
+		return authService.signUp(user); // Delegate signup logic to service
 	}
-	
-	
-	
-	
+
+	/**
+	 * POST /login - Get user details if already authenticated by Spring Security filter
+	 * Steps:
+	 * 1. Spring Security has authenticated the user; we receive the `Principal`.
+	 * 2. Use `principal.getName()` to extract username.
+	 * 3. Load and return user details using custom user service.
+	 */
 	@PostMapping("/login")
 	public UserDetails login(Principal principal) {
-		/* Make this login as Authenticated API 
-		 * If this method is called, it means that Spring Filter alreeady
-		 * has correct username/password
-		 * 
-		 * Can i ask spring filter to share these username and password  with me?
-		 * -- yes but only username, spring filter never ever shares user password 
-		 * */
-		String username = principal.getName();
-		logger.debug("Username given " + username); 
-		return myUserService.loadUserByUsername(username);
+		String username = principal.getName(); // Get the logged-in username
+		logger.debug("Username given: " + username);
+		return myUserService.loadUserByUsername(username); // Load user details by username
 	}
-	
+
+	/**
+	 * POST /token/generate - Authenticate and generate a JWT token
+	 * Steps:
+	 * 1. Accept username and password from request.
+	 * 2. Create an Authentication token with them.
+	 * 3. Use AuthenticationManager to verify credentials.
+	 * 4. If valid, generate a JWT token.
+	 * 5. Return token with metadata as a DTO.
+	 */
 	@PostMapping("/token/generate")
-	public TokenDto generateToken(@RequestBody User user,TokenDto dto) {
-		/*Step 1. Build authentication ref based on username,passord given*/
-		Authentication auth = 
-		new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
-	
-		authenticationManager.authenticate(auth);
+	public TokenDto generateToken(@RequestBody User user) {
+		// Create an authentication token from the incoming username/password
+		Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 		
-		/*Step 2: Generate the token since we know that credentials are correct */
-		String token =  jwtUtil.generateToken(user.getUsername()); 
+		// Authenticate using Spring Security
+		authenticationManager.authenticate(auth);
+
+		// Generate JWT token using the username
+		String token = jwtUtil.generateToken(user.getUsername());
+
+		// Prepare token response DTO
+		TokenDto dto = new TokenDto();
 		dto.setToken(token);
 		dto.setUsername(user.getUsername());
 		dto.setExpiry(jwtUtil.extractExpiration(token).toString());
-		logger.info("Token generated for User " + user.getUsername()); 
-		logger.warn("Token will expiry On " + jwtUtil.extractExpiration(token).toString());
-		return dto; 
+
+		// Logging information
+		logger.info("Token generated for User " + user.getUsername());
+		logger.warn("Token will expire On " + dto.getExpiry());
+
+		return dto; // Send token back to the client
 	}
-	
+
+	/**
+	 * GET /user/details - Retrieve logged-in user's details using JWT-based Principal
+	 * Steps:
+	 * 1. Extract username from authenticated Principal.
+	 * 2. Load user details using the username.
+	 * 3. Return user details to the frontend.
+	 */
 	@GetMapping("/user/details")
 	public UserDetails getUserDetails(Principal principal) {
-		String username = principal.getName();
-		return myUserService.loadUserByUsername(username);
+		String username = principal.getName(); // Extract username from Principal
+		return myUserService.loadUserByUsername(username); // Return corresponding UserDetails
 	}
-	
-	
-	
 }

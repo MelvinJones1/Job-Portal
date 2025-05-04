@@ -23,7 +23,7 @@ public class Assignment {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    
     private String url;
     
     @Column(nullable = false)

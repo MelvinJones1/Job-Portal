@@ -23,61 +23,62 @@ import com.spring.rest_api.career_crafter.service.AssessmentService;
 import com.spring.rest_api.career_crafter.service.JobSeekerService;
 import com.spring.rest_api.career_crafter.service.JobService;
 
-@RestController    
+@RestController
 @RequestMapping("/api/application")
 public class ApplicationController {
-	
+
 	@Autowired
 	private ApplicationService applicationService;
-	
+
 	@Autowired
 	private JobSeekerService jobSeekerService;
-	
+
 	@Autowired
 	private JobService jobService;
-	
+
 	@Autowired
 	private AssessmentService assessmentService;
-	
-    // Job Seeker applies to a job using job ID and their ID
+
+	// Job Seeker applies to a job using job ID and their ID
 	@PostMapping("/add/{jsId}/{jobId}")
-	public Application applyJob(@PathVariable int jsId, @PathVariable int jobId
-								,@RequestBody Application application) throws InvalidIDException {
-		
+	public Application applyJob(@PathVariable int jsId, @PathVariable int jobId, @RequestBody Application application)
+			throws InvalidIDException {
+
 		JobSeeker jobSeeker = jobSeekerService.getSingleJobSeeker(jsId);
-		Job job =  jobService.getJobById(jobId);
-		
+		Job job = jobService.getJobById(jobId);
+
 		application.setJob(job);
 		application.setJobSeeker(jobSeeker);
 		application.setStatus(ApplicationStatus.APPLIED);
 		application.setAppliedAt(LocalDate.now());
-		
+
 		return applicationService.applyJob(application);
-		
+
 	}
-	
-    // Get list of all job applications.
+
+	// Get list of all job applications.
 	@GetMapping("/all")
 	public List<Application> getAllApplication() {
 		return applicationService.getAllApplication();
 	}
-	
-    // Get applications for a specific job by job ID
+
+	// Get applications for a specific job by job ID
 	@GetMapping("/job/{jobId}/applications")
-    public List<Application> getApplicationsByJob(@PathVariable int jobId) {
-        return applicationService.getApplicationsByJob(jobId);
-    }
-	
-    // Update status of an application (e.g., Shortlisted, Hired, Rejected)
-	@PutMapping("/update-status/{applicationId}")
-	public Application updateStatus(@PathVariable int applicationId, @RequestParam String status) throws InvalidIDException {
-	    return applicationService.updateApplicationStatus(applicationId, status);
+	public List<Application> getApplicationsByJob(@PathVariable int jobId) {
+		return applicationService.getApplicationsByJob(jobId);
 	}
-	
-    // Get all applications sorted by assessment score in descending order
+
+	// Update status of an application (e.g., Shortlisted, Hired, Rejected)
+	@PutMapping("/update-status/{applicationId}")
+	public Application updateStatus(@PathVariable int applicationId, @RequestParam String status)
+			throws InvalidIDException {
+		return applicationService.updateApplicationStatus(applicationId, status);
+	}
+
+	// Get all applications sorted by assessment score in descending order
 	@GetMapping("/sort-by-score")
 	public List<Application> getSortedApplicationsByScore() {
-	    return assessmentService.getApplicationsSortedByScoreDesc();  
+		return assessmentService.getApplicationsSortedByScoreDesc();
 	}
 
 	// Get Total No. of applications submitted by Jobseeker
@@ -85,15 +86,14 @@ public class ApplicationController {
 	public int getTotalApplications(@PathVariable int jsId) throws InvalidIDException {
 		jobSeekerService.getSingleJobSeeker(jsId);
 		return applicationService.getTotalApplications(jsId);
-		}
+	}
 
-	// Get Total No. of applications based on status of application 
+	// Get Total No. of applications based on status of application
 	@GetMapping("/count-by-status/{jsId}")
-	public int getApplicationCountByStatus(@PathVariable int jsId, @RequestParam ApplicationStatus status) throws InvalidIDException {
+	public int getApplicationCountByStatus(@PathVariable int jsId, @RequestParam ApplicationStatus status)
+			throws InvalidIDException {
 		jobSeekerService.getSingleJobSeeker(jsId);
 		return applicationService.getApplicationCountByStatus(status);
 	}
-	
-	
-	
+
 }

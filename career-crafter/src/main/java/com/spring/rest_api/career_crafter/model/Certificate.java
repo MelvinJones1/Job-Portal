@@ -12,17 +12,7 @@ public class Certificate {
     @Column(nullable = false)
     private String certificateUrl;
     
-    @ManyToOne
-    private CourseContent courseContent;
-
-
-	public CourseContent getCourseContent() {
-		return courseContent;
-	}
-
-	public void setCourseContent(CourseContent courseContent) {
-		this.courseContent = courseContent;
-	}
+   
 
 	public int getId() {
 		return id;

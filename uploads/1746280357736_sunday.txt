@@ -1,0 +1,8 @@
+sunday:
+check all the apis working and all
+review every change if needed to be done in the backend
+get the postman collection done and push that into the git
+move on with understanding and developing the react ui for the capestone project
+watch screen recordings of the classes you have taken  
+Trouble shooting too
+once test atlest 5-6 screens working or not

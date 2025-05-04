@@ -18,12 +18,11 @@ public class CourseModule {
     @ManyToOne
     private Course course;
 
-
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
-    private String url;
+    private String url; // Can store multiple comma-separated file paths or URLs
 
 	public int getId() {
 		return id;
@@ -41,9 +40,6 @@ public class CourseModule {
 		this.course = course;
 	}
 
-
-	
-
 	public String getTitle() {
 		return title;
 	}
@@ -60,4 +56,5 @@ public class CourseModule {
 		this.url = url;
 	}
 
+    // Getters and setters
 }

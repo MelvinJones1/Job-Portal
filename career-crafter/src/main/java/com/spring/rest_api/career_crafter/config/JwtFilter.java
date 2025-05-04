@@ -2,7 +2,6 @@ package com.spring.rest_api.career_crafter.config;
 
 import java.io.IOException;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,55 +24,54 @@ import jakarta.servlet.http.HttpServletResponse;
  * make it go thru this filter  
  * */
 @Component
-public class JwtFilter extends OncePerRequestFilter{
+public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private JwtUtil jwtUtil;
-	
+
 	@Autowired
-	private MyUserService myUserService ;
-	
+	private MyUserService myUserService;
+
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, 
-			HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		 try {
-		/*
-		 * using request, i will take token from spring 
-		 * using jwtUtil, i vl decode that token: username 
-		 * using userSecurityService, i will fetch user details by username
-		 * role..
-		 * */
-		final String authorizationHeader = request.getHeader("Authorization");
-		
-		 String username = null;
-	     String jwt = null;
+		try {
+			/*
+			 * using request, i will take token from spring using jwtUtil, i vl decode that
+			 * token: username using userSecurityService, i will fetch user details by
+			 * username role..
+			 */
+			final String authorizationHeader = request.getHeader("Authorization");
+			// final String authorizationHeader
+			// ="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWZW5rYXRlc2giLCJleHAiOjE3NDU5ODQ2MzYsImlhdCI6MTc0NTg5ODIzNn0.20nNIuKfky96bqPhSzaapwQPjaeUOPesyT8Ry8oQo84";
+			String username = null;
+			String jwt = null;
 
-	        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-	            jwt = authorizationHeader.substring(7);
-	            username = jwtUtil.extractUsername(jwt);
-	        }
-	        
-	        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+				jwt = authorizationHeader.substring(7);
+				username = jwtUtil.extractUsername(jwt);
+			}
 
-	            UserDetails userDetails = this.myUserService.loadUserByUsername(username);
+			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-	            if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
+				UserDetails userDetails = this.myUserService.loadUserByUsername(username);
+				System.out.println("username" + username);
 
-	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
-	                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-	                usernamePasswordAuthenticationToken
-	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	            }
-	            
-	        }
-	        filterChain.doFilter(request, response);
-		 }
-		 catch(Exception e) {
-			 System.out.println(e.getMessage());
-			 //define global exception handler... todo 
-		 }
+				if (jwtUtil.validateToken(jwt, userDetails.getUsername())) {
+
+					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+					usernamePasswordAuthenticationToken
+							.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+				}
+
+			}
+			filterChain.doFilter(request, response);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			// define global exception handler... todo
+		}
 	}
 
 }
