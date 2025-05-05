@@ -45,8 +45,10 @@ public class SecurityConfig {
 				.requestMatchers("/api/course/update/{courseId}").authenticated()
 				.requestMatchers("/api/course/get/{courseId}").authenticated().requestMatchers("/api/modules/**")
 				.authenticated().requestMatchers("/api/course/getAll").authenticated()
-				.requestMatchers("/api/course/courses/search").authenticated().requestMatchers("/api/reviews/**")
+				.requestMatchers("/api/course/courses/search").authenticated().requestMatchers("/api/reviews/getAll")
 				.authenticated().requestMatchers("/api/enrollments/**").authenticated()
+				.requestMatchers("/api/certificates/**").authenticated()
+				.requestMatchers("/api/modules/**").authenticated()
 
 		).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

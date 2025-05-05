@@ -2,11 +2,14 @@ package com.spring.rest_api.career_crafter.model;
 
 import java.time.LocalDate;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 
 
@@ -29,7 +32,22 @@ public class Assignment {
     @Column(nullable = false)
     private LocalDate submissionDeadline;
 
+	@OneToOne
+	private Certificate certificate;
+	public Certificate getCertificate() {
+		return certificate;
+	}
+
+	public void setCertificate(Certificate certificate) {
+		this.certificate = certificate;
+	}
+
 	
+
+	public Assignment() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -70,5 +88,7 @@ public class Assignment {
 	public void setSubmissionDeadline(LocalDate submissionDeadline) {
 		this.submissionDeadline = submissionDeadline;
 	}
+	
+
 
 }

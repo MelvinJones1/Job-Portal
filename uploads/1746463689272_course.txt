@@ -1,0 +1,121 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function CourseManagementPage() {
+    const [courses, setCourses] = useState([]); // State for course data
+    const [currentPage, setCurrentPage] = useState(1); // Current page number
+    const [totalPages, setTotalPages] = useState(0); // Total pages available
+    const [searchQuery, setSearchQuery] = useState(""); // Search input
+    const [selectedCategory, setSelectedCategory] = useState(""); // Category filter
+
+    // Fetch paginated courses from backend
+    useEffect(() => {
+        fetchCourses();
+    }, [currentPage]);
+
+    const fetchCourses = () => {
+        const endpoint = `http://localhost:8081/api/course/getAllCourses?page=${currentPage - 1}&size=10`; // Adjust page (0-based index)
+        axios.get(endpoint)
+            .then(response => {
+                setCourses(response.data.content); // Assuming paginated API returns `content`
+                setTotalPages(response.data.totalPages); // Total pages from API
+            })
+            .catch(error => console.error("Error fetching paginated courses:", error));
+    };
+
+    // Handle page change
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    return (
+        <div className="container mt-4">
+            <h1>Course Management</h1>
+
+            {/* Paginated Table */}
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Difficulty Level</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {courses.map(course => (
+                        <tr key={course.id}>
+                            <td>{course.title}</td>
+                            <td>{course.description}</td>
+                            <td>{course.category}</td>
+                            <td>{course.difficultyLevel}</td>
+                            <td>{course.createdAt}</td>
+                            <td>
+                                {/* Actions */}
+                                <button
+                                    className="btn btn-success me-2"
+                                    onClick={() => console.log(`Edit Course ${course.id}`)} // Replace with navigation logic
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => console.log(`Delete Course ${course.id}`)} // Replace with delete logic
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {/* Pagination Controls */}
+            <nav className="d-flex justify-content-center mt-4">
+                <ul className="pagination">
+                    {/* Previous Page */}
+                    <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                        <button
+                            className="page-link"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1} // Disable the button when on page 1
+                        >
+                            Previous
+                        </button>
+                    </li>
+
+                    {/* Page Numbers */}
+                    {[...Array(totalPages)].map((_, index) => (
+                        <li
+                            key={index}
+                            className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
+                        >
+                            <button
+                                className="page-link"
+                                onClick={() => handlePageChange(index + 1)}
+                            >
+                                {index + 1}
+                            </button>
+                        </li>
+                    ))}
+
+                    {/* Next Page */}
+                    <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                        <button
+                            className="page-link"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages} // Disable the button when on the last page
+                        >
+                            Next
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    );
+}
+
+export default CourseManagementPage;
