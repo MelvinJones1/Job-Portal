@@ -17,7 +17,7 @@ import com.spring.rest_api.career_crafter.service.CourseService;
 
 @RestController
 @RequestMapping("/api/course")
-@CrossOrigin(origins = {"http://localhost:5173"}) // Allow requests from the frontend
+//@CrossOrigin(origins = {"http://localhost:5173"}) // Allow requests from the frontend
 public class CourseController {
 
     @Autowired
@@ -122,6 +122,7 @@ public class CourseController {
      */
     @GetMapping("/courses/search")
     public List<Course> searchCourses(@RequestParam String title) {
+    	logger.info("searching course by"+title);
         return courseService.searchCoursesByTitle(title); // Partial match search
     }
 }

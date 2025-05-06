@@ -1,6 +1,7 @@
 package com.spring.rest_api.career_crafter.controller;
 
 import com.spring.rest_api.career_crafter.model.CourseModule;
+
 import com.spring.rest_api.career_crafter.service.CourseModuleService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/modules")
-@CrossOrigin(origins = {"http://localhost:5173"})
+//@CrossOrigin(origins = {"http://localhost:5173"})
 public class CourseModuleController {
 
     @Autowired

@@ -20,7 +20,7 @@ import com.spring.rest_api.career_crafter.service.MyUserService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:5173"}) // Allow frontend on localhost:5173 to interact with backend
+//@CrossOrigin(origins = {"http://localhost:5173"}) // Allow frontend on localhost:5173 to interact with backend
 public class AuthController {
 
 	@Autowired

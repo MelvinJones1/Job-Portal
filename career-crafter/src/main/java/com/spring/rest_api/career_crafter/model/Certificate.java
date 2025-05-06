@@ -1,6 +1,6 @@
 package com.spring.rest_api.career_crafter.model;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 
 @Entity
 public class Certificate {
@@ -11,25 +11,17 @@ public class Certificate {
 
     @Column(nullable = false)
     private String certificateUrl;
-    
-   
 
-	public int getId() {
-		return id;
-	}
+    @OneToOne
+    private Enrollment enrollment;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-	
+    public String getCertificateUrl() { return certificateUrl; }
+    public void setCertificateUrl(String certificateUrl) { this.certificateUrl = certificateUrl; }
 
-	public String getCertificateUrl() {
-		return certificateUrl;
-	}
-
-	public void setCertificateUrl(String certificateUrl) {
-		this.certificateUrl = certificateUrl;
-	}
-	
+    public Enrollment getEnrollment() { return enrollment; }
+    public void setEnrollment(Enrollment enrollment) { this.enrollment = enrollment; }
 }

@@ -1,9 +1,15 @@
 package com.spring.rest_api.career_crafter.service;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+import com.spring.rest_api.career_crafter.model.Certificate;
 import com.spring.rest_api.career_crafter.model.Course;
+import com.spring.rest_api.career_crafter.model.Enrollment;
+import com.spring.rest_api.career_crafter.model.JobSeeker;
+import com.spring.rest_api.career_crafter.repository.CertificateRepository;
 import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
 import com.spring.rest_api.career_crafter.repository.CourseRepository;
+import com.spring.rest_api.career_crafter.repository.EnrollmentRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CourseService {
@@ -20,6 +27,10 @@ public class CourseService {
 
 	@Autowired
 	private CourseModuleRepository courseModuleRepository;
+	@Autowired
+	private EnrollmentRepository enrollmentRepository;
+	@Autowired
+	private CertificateRepository certificateRepository;
 
 	/**
 	 * Adds a new course with the provided details.
@@ -84,15 +95,39 @@ public class CourseService {
 	 */
 	@Transactional
 	public void deleteCourse(int courseId) throws InvalidIDException {
-		Course course = courseRepository.findById(courseId)
-				.orElseThrow(() -> new InvalidIDException("Course not found"));
+	    Course course = courseRepository.findById(courseId)
+	            .orElseThrow(() -> new InvalidIDException("Course not found"));
 
-		// First, delete associated modules
-		courseModuleRepository.deleteByCourseId(courseId);
+	    // Step 1: Get enrollments for this course
+	    List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
 
-		// Then, delete the course itself
-		courseRepository.delete(course);
+	    // Step 2: For each enrollment, handle certificates
+	    for (Enrollment enrollment : enrollments) {
+	        List<Certificate> certificates = certificateRepository.findByEnrollmentId(enrollment.getId());
+
+	        for (Certificate certificate : certificates) {
+	            // Remove job seeker associations
+	            Set<JobSeeker> jobSeekers = certificate.getJobSeekers();
+	            for (JobSeeker jobSeeker : jobSeekers) {
+	                jobSeeker.getCertificates().remove(certificate); // Break link from JobSeeker side
+	            }
+	            certificate.getJobSeekers().clear(); // Break link from Certificate side
+
+	            // Delete certificate
+	            certificateRepository.delete(certificate);
+	        }
+	    }
+
+	    // Step 3: Delete enrollments
+	    enrollmentRepository.deleteAll(enrollments);
+
+	    // Step 4: Delete course modules
+	    courseModuleRepository.deleteByCourseId(courseId);
+
+	    // Step 5: Delete the course itself
+	    courseRepository.delete(course);
 	}
+
 
 	/**
 	 * Retrieves the total count of courses.
@@ -113,6 +148,8 @@ public class CourseService {
 	 * @return A list of courses matching the search criteria
 	 */
 	public List<Course> searchCoursesByTitle(String title) {
-		return courseRepository.findByTitleContaining(title);
+	   
+	    return courseRepository.findByTitleContaining(title);
 	}
+
 }

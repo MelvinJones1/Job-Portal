@@ -62,4 +62,9 @@ public class EnrollmentService {
 	public long getCompletedEnrollments() {
 		return enrollmentRepository.countByCompleted(true); // Count completed enrollments
 	}
+	
+	public Enrollment getEnrollmentById(int id) {
+	    return enrollmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Enrollment not found"));
+	}
+
 }

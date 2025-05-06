@@ -16,7 +16,7 @@ public class Enrollment {
     @ManyToOne
     private Course course;
 
-    private int progress; // Standardized to int for consistency
+   
 
     private boolean completed;
 
@@ -34,8 +34,7 @@ public class Enrollment {
     public Course getCourse() { return course; }
     public void setCourse(Course course) { this.course = course; }
 
-    public int getProgress() { return progress; }
-    public void setProgress(int progress) { this.progress = progress; }
+  
 
     public boolean isCompleted() { return completed; }
     public void setCompleted(boolean completed) { this.completed = completed; }

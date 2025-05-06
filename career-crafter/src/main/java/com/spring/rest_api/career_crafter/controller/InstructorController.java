@@ -37,7 +37,7 @@ import com.spring.rest_api.career_crafter.exception.*;
 
 @RestController
 @RequestMapping("/api/instructor")
-@CrossOrigin(origins = {"http://localhost:5173"})
+//@CrossOrigin(origins = {"http://localhost:5173"})
 public class InstructorController {
 	 @Autowired
 	    private CourseService courseService;
