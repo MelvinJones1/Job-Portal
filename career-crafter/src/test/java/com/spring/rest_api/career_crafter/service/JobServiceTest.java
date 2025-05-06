@@ -27,43 +27,37 @@ import com.spring.rest_api.career_crafter.repository.JobRepository;
 @ExtendWith(MockitoExtension.class)
 public class JobServiceTest {
 
-    @InjectMocks
-    private JobService jobService;
+	@InjectMocks
+	private JobService jobService;
 
-    @Mock
-    private JobRepository jobRepository;
+	@Mock
+	private JobRepository jobRepository;
 
-    Hr hr;
-    Job job1, job2;
-    
-    
-    @BeforeEach
-    public void init() {
-        hr = new Hr(1, "Ravi HR", "ravi@example.com");
+	Hr hr;
+	Job job1, job2;
 
-        job1 = new Job(101, "Java Backend Developer", "Engineering", JobType.FULL_TIME,
-                "Remote", "10LPA", "Work on backend", "Java, Spring", 
-                LocalDate.of(2025, 5, 30), JobStatus.PUBLISHED, hr);
+	@BeforeEach
+	public void init() {
+		hr = new Hr(1, "Ravi HR", "ravi@example.com");
 
-        job2 = new Job(102, "Frontend Developer", "Engineering", JobType.CONTRACT,
-                "Hybrid", "8LPA", "Work on UI", "React, HTML, CSS",
-                LocalDate.of(2025, 5, 25), JobStatus.PUBLISHED, hr);
-    }
+		job1 = new Job(101, "Java Backend Developer", "Engineering", JobType.FULL_TIME, "Remote", "10LPA",
+				"Work on backend", "Java, Spring", LocalDate.of(2025, 5, 30), JobStatus.PUBLISHED, hr);
 
+		job2 = new Job(102, "Frontend Developer", "Engineering", JobType.CONTRACT, "Hybrid", "8LPA", "Work on UI",
+				"React, HTML, CSS", LocalDate.of(2025, 5, 25), JobStatus.PUBLISHED, hr);
+	}
 
-    @Test
-    public void testFetchJobsByHr() {
-     
-        
-        List<Job> expectedJobs = Arrays.asList(job1, job2);
+	@Test
+	public void testFetchJobsByHr() {
 
-        when(jobRepository.findByHrId(1)).thenReturn(expectedJobs);
+		List<Job> expectedJobs = Arrays.asList(job1, job2);
 
-        List<Job> actualJobs = jobService.fetchJobsByHr(1);
+		when(jobRepository.findByHrId(1)).thenReturn(expectedJobs);
 
-        assertEquals(expectedJobs.size(), actualJobs.size());
-     
+		List<Job> actualJobs = jobService.fetchJobsByHr(1);
 
-        verify(jobRepository, times(1)).findByHrId(1);
-    }
+		assertEquals(expectedJobs.size(), actualJobs.size());
+
+		verify(jobRepository, times(1)).findByHrId(1);
+	}
 }

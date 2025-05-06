@@ -3,7 +3,7 @@ package com.spring.rest_api.career_crafter.service;
 import com.spring.rest_api.career_crafter.model.CourseReview;
 import com.spring.rest_api.career_crafter.repository.CourseReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +21,12 @@ public class CourseReviewService {
 	 * @param pageable Pageable object containing pagination information
 	 * @return A list of course reviews based on pagination parameters
 	 */
-	public List<CourseReview> getAllReviewsPaginated(Pageable pageable) {
-		// Ensure that the pageable object is not null and has a valid page size
+	public Page<CourseReview> getAllReviewsPaginated(Pageable pageable) {
+		// Ensure that the pageable object is valid
 		if (pageable == null || pageable.getPageSize() <= 0) {
 			throw new IllegalArgumentException("Invalid pagination parameters.");
 		}
-
-		// Fetch and return the content of reviews as per the pagination details
-		return courseReviewRepository.findAll(pageable).getContent();
+		return courseReviewRepository.findAll(pageable);
 	}
 
 	/**

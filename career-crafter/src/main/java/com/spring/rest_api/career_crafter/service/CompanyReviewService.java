@@ -13,13 +13,13 @@ public class CompanyReviewService {
 
 	@Autowired
 	private CompanyReviewRepository companyReviewRepository;
-	
+
 	public CompanyReview postReview(CompanyReview companyReview) {
 		return companyReviewRepository.save(companyReview);
 	}
 
 	public List<CompanyReview> getCompanyReviewByCompId(int compId) {
-		
+
 		return companyReviewRepository.findAllByCompanyId(compId);
 	}
 

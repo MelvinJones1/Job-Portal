@@ -1,114 +1,165 @@
 package com.spring.rest_api.career_crafter.service;
 
+import com.spring.rest_api.career_crafter.model.Course;
 import com.spring.rest_api.career_crafter.model.Enrollment;
+import com.spring.rest_api.career_crafter.model.JobSeeker;
 import com.spring.rest_api.career_crafter.repository.EnrollmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnrollmentServiceTest {
 
-    @Mock
-    private EnrollmentRepository enrollmentRepository;
+	@Mock
+	private EnrollmentRepository enrollmentRepository;
 
-    @InjectMocks
-    private EnrollmentService enrollmentService;
+	@InjectMocks
+	private EnrollmentService enrollmentService;
 
-    private Enrollment enrollment1;
-    private Enrollment enrollment2;
+	private Enrollment enrollment1;
+	private Enrollment enrollment2;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+	private JobSeeker jobSeeker;
+	private Course course;
 
-        enrollment1 = new Enrollment();
-        enrollment1.setId(1);
-        enrollment1.setProgress(50);
-        enrollment1.setCompleted(false);
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
 
-        enrollment2 = new Enrollment();
-        enrollment2.setId(2);
-        enrollment2.setProgress(100);
-        enrollment2.setCompleted(true);
-    }
+		// Creating mock JobSeeker and Course objects
+		jobSeeker = new JobSeeker();
+		jobSeeker.setId(1);
+		jobSeeker.setName("John Doe");
 
-    @Test
-    public void testGetAllEnrollmentsPaginated() {
-        // Given
-        List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
-        Pageable pageable = PageRequest.of(0, 10);
-        when(enrollmentRepository.findAll(pageable)).thenReturn(new PageImpl<>(enrollments));
+		course = new Course();
+		course.setId(1);
+		course.setTitle("Java Programming");
 
-        // When
-        List<Enrollment> result = enrollmentService.getAllEnrollmentsPaginated(pageable);
+		// Creating mock Enrollment objects
+		enrollment1 = new Enrollment();
+		enrollment1.setId(1);
+		enrollment1.setJobSeeker(jobSeeker);
+		enrollment1.setCourse(course);
+		enrollment1.setCompleted(true);
+		enrollment1.setEnrolledDate(LocalDate.now());
 
-        // Then
-        assertEquals(2, result.size());
-        verify(enrollmentRepository, times(1)).findAll(pageable);
-    }
+		enrollment2 = new Enrollment();
+		enrollment2.setId(2);
+		enrollment2.setJobSeeker(jobSeeker);
+		enrollment2.setCourse(course);
+		enrollment2.setCompleted(false);
+		enrollment2.setEnrolledDate(LocalDate.now());
+	}
 
-    @Test
-    public void testGetEnrollmentsByCategory() {
-        // Given
-        String categoryName = "Programming";
-        List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
-        when(enrollmentRepository.findByCourseCategory(categoryName)).thenReturn(enrollments);
+	@Test
+	public void testGetAllEnrollmentsPaginated() {
+		// Given
+		List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
+		Pageable pageable = PageRequest.of(0, 10);
 
-        // When
-        List<Enrollment> result = enrollmentService.getEnrollmentsByCategory(categoryName);
+		// Mock the repository to return a PageImpl with the enrollments list
+		when(enrollmentRepository.findAll(pageable)).thenReturn(new PageImpl<>(enrollments));
 
-        // Then
-        assertEquals(2, result.size());
-        verify(enrollmentRepository, times(1)).findByCourseCategory(categoryName);
-    }
+		// When
+		Page<Enrollment> result = enrollmentService.getAllEnrollmentsPaginated(pageable);
 
-    @Test
-    public void testGetEnrollmentsByJobSeekerName() {
-        // Given
-        String name = "John Doe";
-        List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
-        when(enrollmentRepository.findByJobSeekerName(name)).thenReturn(enrollments);
+		// Then
+		assertEquals(2, result.getContent().size()); // Checking the content size of the page
+		verify(enrollmentRepository, times(1)).findAll(pageable);
+	}
 
-        // When
-        List<Enrollment> result = enrollmentService.getEnrollmentsByJobSeekerName(name);
+	@Test
+	public void testGetEnrollmentsByCategory() {
+		// Given
+		String categoryName = "Programming";
+		List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
+		when(enrollmentRepository.findByCourseCategory(categoryName)).thenReturn(enrollments);
 
-        // Then
-        assertEquals(2, result.size());
-        verify(enrollmentRepository, times(1)).findByJobSeekerName(name);
-    }
+		// When
+		List<Enrollment> result = enrollmentService.getEnrollmentsByCategory(categoryName);
 
-    @Test
-    public void testGetTotalEnrollments() {
-        // Given
-        when(enrollmentRepository.count()).thenReturn(5L);
+		// Then
+		assertEquals(2, result.size());
+		verify(enrollmentRepository, times(1)).findByCourseCategory(categoryName);
+	}
 
-        // When
-        long result = enrollmentService.getTotalEnrollments();
+	@Test
+	public void testGetEnrollmentsByJobSeekerName() {
+		// Given
+		String jobSeekerName = "John Doe";
+		List<Enrollment> enrollments = Arrays.asList(enrollment1, enrollment2);
+		when(enrollmentRepository.findByJobSeekerName(jobSeekerName)).thenReturn(enrollments);
 
-        // Then
-        assertEquals(5L, result);
-        verify(enrollmentRepository, times(1)).count();
-    }
+		// When
+		List<Enrollment> result = enrollmentService.getEnrollmentsByJobSeekerName(jobSeekerName);
 
-    @Test
-    public void testGetCompletedEnrollments() {
-        // Given
-        when(enrollmentRepository.countByCompleted(true)).thenReturn(3L);
+		// Then
+		assertEquals(2, result.size());
+		verify(enrollmentRepository, times(1)).findByJobSeekerName(jobSeekerName);
+	}
 
-        // When
-        long result = enrollmentService.getCompletedEnrollments();
+	@Test
+	public void testGetTotalEnrollments() {
+		// Given
+		long totalEnrollments = 100;
+		when(enrollmentRepository.count()).thenReturn(totalEnrollments);
 
-        // Then
-        assertEquals(3L, result);
-        verify(enrollmentRepository, times(1)).countByCompleted(true);
-    }
+		// When
+		long result = enrollmentService.getTotalEnrollments();
+
+		// Then
+		assertEquals(totalEnrollments, result);
+		verify(enrollmentRepository, times(1)).count();
+	}
+
+	@Test
+	public void testGetCompletedEnrollments() {
+		// Given
+		long completedEnrollments = 50;
+		when(enrollmentRepository.countByCompleted(true)).thenReturn(completedEnrollments);
+
+		// When
+		long result = enrollmentService.getCompletedEnrollments();
+
+		// Then
+		assertEquals(completedEnrollments, result);
+		verify(enrollmentRepository, times(1)).countByCompleted(true);
+	}
+
+	@Test
+	public void testGetEnrollmentById() {
+		// Given
+		int enrollmentId = 1;
+		when(enrollmentRepository.findById(enrollmentId)).thenReturn(Optional.of(enrollment1));
+
+		// When
+		Enrollment result = enrollmentService.getEnrollmentById(enrollmentId);
+
+		// Then
+		assertNotNull(result);
+		assertEquals(enrollmentId, result.getId());
+		verify(enrollmentRepository, times(1)).findById(enrollmentId);
+	}
+
+	@Test
+	public void testGetEnrollmentById_NotFound() {
+		// Given
+		int enrollmentId = 999;
+		when(enrollmentRepository.findById(enrollmentId)).thenReturn(Optional.empty());
+
+		// When & Then
+		assertThrows(RuntimeException.class, () -> enrollmentService.getEnrollmentById(enrollmentId));
+	}
 }

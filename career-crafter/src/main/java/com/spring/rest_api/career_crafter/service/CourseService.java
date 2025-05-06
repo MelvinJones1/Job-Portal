@@ -5,10 +5,13 @@ import com.spring.rest_api.career_crafter.model.Certificate;
 import com.spring.rest_api.career_crafter.model.Course;
 import com.spring.rest_api.career_crafter.model.Enrollment;
 import com.spring.rest_api.career_crafter.model.JobSeeker;
+import com.spring.rest_api.career_crafter.model.JobSeekerCertificates;
 import com.spring.rest_api.career_crafter.repository.CertificateRepository;
 import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
 import com.spring.rest_api.career_crafter.repository.CourseRepository;
+import com.spring.rest_api.career_crafter.repository.CourseReviewRepository;
 import com.spring.rest_api.career_crafter.repository.EnrollmentRepository;
+import com.spring.rest_api.career_crafter.repository.JobSeeekerCertificatesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,9 +34,14 @@ public class CourseService {
 	private EnrollmentRepository enrollmentRepository;
 	@Autowired
 	private CertificateRepository certificateRepository;
+	@Autowired
+	private JobSeeekerCertificatesRepository jobSeeekerCertificatesRepository;
+
+	@Autowired
+	private CourseReviewRepository courseReviewRepository;
 
 	/**
-	 * Adds a new course with the provided details.
+	 * ; Adds a new course with the provided details.
 	 *
 	 * @param course The course to be added
 	 * @return The saved course entity
@@ -95,39 +103,36 @@ public class CourseService {
 	 */
 	@Transactional
 	public void deleteCourse(int courseId) throws InvalidIDException {
-	    Course course = courseRepository.findById(courseId)
-	            .orElseThrow(() -> new InvalidIDException("Course not found"));
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(() -> new InvalidIDException("Course not found"));
 
-	    // Step 1: Get enrollments for this course
-	    List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
+		// Step 1: Get enrollments for this course
+		List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
 
-	    // Step 2: For each enrollment, handle certificates
-	    for (Enrollment enrollment : enrollments) {
-	        List<Certificate> certificates = certificateRepository.findByEnrollmentId(enrollment.getId());
+		// Step 2: For each enrollment, handle certificate and job seeker links
+		for (Enrollment enrollment : enrollments) {
+			Certificate certificate = certificateRepository.findByEnrollmentId(enrollment.getId());
 
-	        for (Certificate certificate : certificates) {
-	            // Remove job seeker associations
-	            Set<JobSeeker> jobSeekers = certificate.getJobSeekers();
-	            for (JobSeeker jobSeeker : jobSeekers) {
-	                jobSeeker.getCertificates().remove(certificate); // Break link from JobSeeker side
-	            }
-	            certificate.getJobSeekers().clear(); // Break link from Certificate side
+			if (certificate != null) {
+				List<JobSeekerCertificates> jobSeekerLinks = jobSeeekerCertificatesRepository
+						.findByCertificates(certificate);
+				jobSeeekerCertificatesRepository.deleteAll(jobSeekerLinks);
+				certificateRepository.delete(certificate);
+			}
+		}
 
-	            // Delete certificate
-	            certificateRepository.delete(certificate);
-	        }
-	    }
+		// Step 3: Delete enrollments
+		enrollmentRepository.deleteAll(enrollments);
 
-	    // Step 3: Delete enrollments
-	    enrollmentRepository.deleteAll(enrollments);
+		// Step 4: Delete course modules
+		courseModuleRepository.deleteByCourseId(courseId);
 
-	    // Step 4: Delete course modules
-	    courseModuleRepository.deleteByCourseId(courseId);
+		// Step 4.5: Delete course reviews
+		courseReviewRepository.deleteByCourseId(courseId); // <-- Add this line
 
-	    // Step 5: Delete the course itself
-	    courseRepository.delete(course);
+		// Step 5: Delete the course
+		courseRepository.delete(course);
 	}
-
 
 	/**
 	 * Retrieves the total count of courses.
@@ -148,8 +153,8 @@ public class CourseService {
 	 * @return A list of courses matching the search criteria
 	 */
 	public List<Course> searchCoursesByTitle(String title) {
-	   
-	    return courseRepository.findByTitleContaining(title);
+
+		return courseRepository.findByTitleContaining(title);
 	}
 
 }

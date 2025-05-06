@@ -11,7 +11,8 @@
 		
 		import org.slf4j.LoggerFactory;
 		import org.springframework.beans.factory.annotation.Autowired;
-		import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 		import org.springframework.data.domain.Pageable;
 		
 		import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,14 @@
 		    org.slf4j.Logger logger = LoggerFactory.getLogger("EnrollmentController");
 		
 		    // Get all enrollments with pagination
-			    @GetMapping("/getAll")
-			    public List<Enrollment> getAllEnrollments(@RequestParam int page, @RequestParam int size) {
-			        logger.info("Fetching all enrollments with pagination.");
-			        Pageable pageable = PageRequest.of(page, size);
-			        return enrollmentService.getAllEnrollmentsPaginated(pageable);
-			    }
+		    @GetMapping("/getAll")
+		    public Page<Enrollment> getAllEnrollments(
+		            @RequestParam int page,
+		            @RequestParam int size) {
+		        
+		        Pageable pageable = PageRequest.of(page - 1, size);  // Page is 1-based, adjust for 0-based
+		        return enrollmentService.getAllEnrollmentsPaginated(pageable);
+		    }
 		
 		    // Get enrollments by category
 		    @GetMapping("/getByCategory/{categoryName}")

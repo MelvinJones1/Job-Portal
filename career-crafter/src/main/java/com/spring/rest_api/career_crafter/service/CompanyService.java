@@ -13,18 +13,16 @@ public class CompanyService {
 
 	@Autowired
 	private CompanyRepository companyRepository;
-	
+
 	public Company addCompany(Company company) {
 		return companyRepository.save(company);
 	}
 
 	public Company getSingleCompany(int compId) {
 		Optional<Company> optional = companyRepository.findById(compId);
-		if(optional.isEmpty())
+		if (optional.isEmpty())
 			throw new RuntimeException("Invalid Company ID...");
 		return optional.get();
 	}
-
-	
 
 }

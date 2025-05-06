@@ -15,21 +15,15 @@ public class JobSeekerService {
 	@Autowired
 	private JobSeekerRepository jobSeekerRepository;
 
-	
-
-	public JobSeeker getSingleJobSeeker(int jsId) throws InvalidIDException{
+	public JobSeeker getSingleJobSeeker(int jsId) throws InvalidIDException {
 		Optional<JobSeeker> optional = jobSeekerRepository.findById(jsId);
-		if(optional.isEmpty())
+		if (optional.isEmpty())
 			throw new InvalidIDException("Invalid JobSeekerID...");
 		return optional.get();
 	}
 
-
-
 	public JobSeeker addJobSeeker(JobSeeker jobSeeker) {
 		return jobSeekerRepository.save(jobSeeker);
 	}
-	 
-	
 
 }

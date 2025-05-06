@@ -5,6 +5,7 @@ import com.spring.rest_api.career_crafter.repository.CourseReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,71 +19,85 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseReviewServiceTest {
 
-    @Mock
-    private CourseReviewRepository courseReviewRepository;
+	@Mock
+	private CourseReviewRepository courseReviewRepository;
 
-    @InjectMocks
-    private CourseReviewService courseReviewService;
+	@InjectMocks
+	private CourseReviewService courseReviewService;
 
-    private CourseReview review1;
-    private CourseReview review2;
+	private CourseReview review1;
+	private CourseReview review2;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
 
-        review1 = new CourseReview();
-        review1.setId(1);
-        review1.setRating(4);
-        review1.setReviewText("Great course!");
-        review1.setDatePosted(LocalDate.now());
+		review1 = new CourseReview();
+		review1.setId(1);
+		review1.setRating(4);
+		review1.setReviewText("Great course!");
+		review1.setDatePosted(LocalDate.now());
 
-        review2 = new CourseReview();
-        review2.setId(2);
-        review2.setRating(5);
-        review2.setReviewText("Excellent content!");
-        review2.setDatePosted(LocalDate.now());
-    }
+		review2 = new CourseReview();
+		review2.setId(2);
+		review2.setRating(5);
+		review2.setReviewText("Excellent content!");
+		review2.setDatePosted(LocalDate.now());
+	}
 
-   
-    @Test
-    public void testGetAllReviewsPaginated() {
-        // Given
-        List<CourseReview> reviews = Arrays.asList(review1, review2);
-        Pageable pageable = PageRequest.of(0, 10);
-        // Mock the repository to return a PageImpl with the reviews list
-        when(courseReviewRepository.findAll(pageable)).thenReturn(new PageImpl<>(reviews));
+	@Test
+	public void testGetAllReviewsPaginated() {
+		// Given
+		List<CourseReview> reviews = Arrays.asList(review1, review2);
+		Pageable pageable = PageRequest.of(0, 10);
 
-        // When
-        List<CourseReview> result = courseReviewService.getAllReviewsPaginated(pageable);
+		// Mock the repository to return a PageImpl with the reviews list
+		when(courseReviewRepository.findAll(pageable)).thenReturn(new PageImpl<>(reviews));
 
-        // Then
-        assertEquals(2, result.size());
-        verify(courseReviewRepository, times(1)).findAll(pageable);
-    }
+		// When
+		Page<CourseReview> result = courseReviewService.getAllReviewsPaginated(pageable);
 
+		// Then
+		assertEquals(2, result.getContent().size()); // Checking the content size of the page
+		verify(courseReviewRepository, times(1)).findAll(pageable);
+	}
 
-    @Test
-    public void testGetReviewsByCourseId() {
-        // Given
-        int courseId = 1;
-        List<CourseReview> reviews = Arrays.asList(review1, review2);
-        when(courseReviewRepository.findByCourseId(courseId)).thenReturn(reviews);
+	@Test
+	public void testGetReviewsByCourseId() {
+		// Given
+		int courseId = 1;
+		List<CourseReview> reviews = Arrays.asList(review1, review2);
+		when(courseReviewRepository.findByCourseId(courseId)).thenReturn(reviews);
 
-        // When
-        List<CourseReview> result = courseReviewService.getReviewsByCourseId(courseId);
+		// When
+		List<CourseReview> result = courseReviewService.getReviewsByCourseId(courseId);
 
-        // Then
-        assertEquals(2, result.size());
-        verify(courseReviewRepository, times(1)).findByCourseId(courseId);
-    }
+		// Then
+		assertEquals(2, result.size());
+		verify(courseReviewRepository, times(1)).findByCourseId(courseId);
+	}
 
-    @Test
-    public void testGetReviewsByCourseId_InvalidCourseId() {
-        // Given
-        int courseId = -1;  // Invalid course ID
+	@Test
+	public void testGetReviewsByCourseId_InvalidCourseId() {
+		// Given
+		int invalidCourseId = -1; // Invalid course ID
 
-        // When & Then
-        assertThrows(IllegalArgumentException.class, () -> courseReviewService.getReviewsByCourseId(courseId));
-    }
+		// When & Then
+		assertThrows(IllegalArgumentException.class, () -> courseReviewService.getReviewsByCourseId(invalidCourseId));
+	}
+
+	@Test
+	public void testGetReviewsByCourseId_EmptyList() {
+		// Given
+		int courseId = 1;
+		List<CourseReview> emptyReviews = Arrays.asList(); // No reviews for the course
+		when(courseReviewRepository.findByCourseId(courseId)).thenReturn(emptyReviews);
+
+		// When
+		List<CourseReview> result = courseReviewService.getReviewsByCourseId(courseId);
+
+		// Then
+		assertTrue(result.isEmpty(), "The review list should be empty.");
+		verify(courseReviewRepository, times(1)).findByCourseId(courseId);
+	}
 }

@@ -1,13 +1,15 @@
 package com.spring.rest_api.career_crafter.controller;
 
 import com.spring.rest_api.career_crafter.model.CourseReview;
+
 import com.spring.rest_api.career_crafter.service.CourseReviewService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,9 +33,9 @@ public class CourseReviewController {
      * @return paginated list of CourseReview
      */
     @GetMapping("/getAll")
-    public List<CourseReview> getAllReviews(@RequestParam int page, @RequestParam int size) {
+    public Page<CourseReview> getAllReviews(@RequestParam int page, @RequestParam int size) {
         logger.info("Fetching all reviews with pagination (page: {}, size: {}).", page, size);
-        Pageable pageable = PageRequest.of(page, size);
+        PageRequest pageable = PageRequest.of(page, size);
         return courseReviewService.getAllReviewsPaginated(pageable);
     }
 

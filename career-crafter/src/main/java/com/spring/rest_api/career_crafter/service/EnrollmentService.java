@@ -3,7 +3,7 @@ package com.spring.rest_api.career_crafter.service;
 import com.spring.rest_api.career_crafter.model.Enrollment;
 import com.spring.rest_api.career_crafter.repository.EnrollmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +21,8 @@ public class EnrollmentService {
 	 * @param pageable Pagination details
 	 * @return A list of enrollments within the requested page
 	 */
-	public List<Enrollment> getAllEnrollmentsPaginated(Pageable pageable) {
-		return enrollmentRepository.findAll(pageable).getContent(); // Extract content from Page
+	public Page<Enrollment> getAllEnrollmentsPaginated(Pageable pageable) {
+		return enrollmentRepository.findAll(pageable); // Returning Page instead of List
 	}
 
 	/**
@@ -62,9 +62,9 @@ public class EnrollmentService {
 	public long getCompletedEnrollments() {
 		return enrollmentRepository.countByCompleted(true); // Count completed enrollments
 	}
-	
+
 	public Enrollment getEnrollmentById(int id) {
-	    return enrollmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Enrollment not found"));
+		return enrollmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Enrollment not found"));
 	}
 
 }

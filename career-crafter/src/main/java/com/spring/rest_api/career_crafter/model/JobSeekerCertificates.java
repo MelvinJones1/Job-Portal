@@ -57,6 +57,4 @@ public class JobSeekerCertificates {
 		this.jobSeeker = jobSeeker;
 	}
 	
-	
-
 }
