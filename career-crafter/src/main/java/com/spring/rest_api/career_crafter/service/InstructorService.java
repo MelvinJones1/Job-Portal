@@ -65,36 +65,34 @@ public class InstructorService {
 	public void deleteInstructorById(Instructor instructor) {
 		instructorRepository.delete(instructor);
 	}
-
-	public Instructor uploadImage(MultipartFile file, int insId) throws IOException, InvalidIDException {
-		Instructor instructor = instructorRepository.findById(insId)
-				.orElseThrow(() -> new InvalidIDException("Instructor ID " + insId + " is invalid."));
-
-		// Validate image type
-		List<String> allowedExtensions = Arrays.asList("png", "jpg", "jpeg", "gif", "svg");
-		String originalFileName = file.getOriginalFilename();
-		String extension = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
-		if (!allowedExtensions.contains(extension)) {
-			throw new RuntimeException("Invalid image type.");
+	
+		public Instructor uploadImage(MultipartFile file, int insId) throws IOException, InvalidIDException {
+			Instructor instructor = instructorRepository.findById(insId)
+					.orElseThrow(() -> new InvalidIDException("Instructor ID " + insId + " is invalid."));
+	
+			// Validate image type
+			List<String> allowedExtensions = Arrays.asList("png", "jpg", "jpeg", "gif", "svg");
+			String originalFileName = file.getOriginalFilename();
+			String extension = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
+			if (!allowedExtensions.contains(extension)) {
+				throw new RuntimeException("Invalid image type.");
+			}
+	
+			// Define and create the upload directory
+			String uploadPath = "C:/Users/ragip/OneDrive/Documents/JAVA FULL STACK HEX/Job-Portal/uploads"; 
+																												
+			Files.createDirectories(Paths.get(uploadPath));
+	
+			// Save the file to the upload path
+			Path path = Paths.get(uploadPath, originalFileName);
+			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	
+			// Save only the filename (not the full path) in the database
+			instructor.setProfileImagePath(originalFileName);
+	
+			// Save the updated instructor
+			return instructorRepository.save(instructor);
 		}
-
-		// Define and create the upload directory
-		String uploadPath = "C:/Users/ragip/OneDrive/Documents/JAVA FULL STACK HEX/Job-Portal/uploads"; // Make sure
-																										// this path is
-																										// accessible
-																										// and correct
-		Files.createDirectories(Paths.get(uploadPath));
-
-		// Save the file to the upload path
-		Path path = Paths.get(uploadPath, originalFileName);
-		Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-		// Save only the filename (not the full path) in the database
-		instructor.setProfileImagePath(originalFileName);
-
-		// Save the updated instructor
-		return instructorRepository.save(instructor);
-	}
 
 	public Instructor addInstructor(Instructor instructor) throws InvalidUsernameException {
 		User user = instructor.getUser();

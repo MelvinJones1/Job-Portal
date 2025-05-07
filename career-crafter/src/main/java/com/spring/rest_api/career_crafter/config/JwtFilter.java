@@ -36,11 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-			/*
-			 * using request, i will take token from spring using jwtUtil, i vl decode that
-			 * token: username using userSecurityService, i will fetch user details by
-			 * username role..
-			 */
+			
 			final String authorizationHeader = request.getHeader("Authorization");
 			
 			String username = null;
@@ -69,7 +65,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			filterChain.doFilter(request, response);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			// define global exception handler... todo
+			
 		}
 	}
 

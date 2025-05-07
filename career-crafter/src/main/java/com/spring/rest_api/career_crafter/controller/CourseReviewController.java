@@ -30,11 +30,11 @@ public class CourseReviewController {
      *
      * @param page page number (0-based index)
      * @param size number of records per page
-     * @return paginated list of CourseReview
+     *  paginated list of CourseReview
      */
     @GetMapping("/getAll")
     public Page<CourseReview> getAllReviews(@RequestParam int page, @RequestParam int size) {
-        logger.info("Fetching all reviews with pagination (page: {}, size: {}).", page, size);
+        logger.info("Fetching all reviews with pagination ", page, size);
         PageRequest pageable = PageRequest.of(page, size);
         return courseReviewService.getAllReviewsPaginated(pageable);
     }
@@ -44,19 +44,19 @@ public class CourseReviewController {
      * Retrieve all reviews for a specific course.
      *
      * @param courseId the ID of the course
-     * @return list of CourseReview for the given course
+     *  list of CourseReview for the given course
      */
     @GetMapping("/course/{courseId}")
     public List<CourseReview> getReviewsByCourseId(@PathVariable int courseId) {
-        logger.info("Fetching reviews for course ID: {}", courseId);
+        logger.info("Fetching reviews for course ID", courseId);
         List<CourseReview> reviews = courseReviewService.getReviewsByCourseId(courseId);
 
         if (reviews.isEmpty()) {
-            logger.warn("No reviews found for course ID: {}", courseId);
+            logger.warn("No reviews found for course ID", courseId);
             throw new RuntimeException("No reviews found for the specified course.");
         }
 
-        logger.info("Successfully fetched {} review(s) for course ID: {}", reviews.size(), courseId);
+        logger.info("Successfully fetched review for course ID", reviews.size(), courseId);
         return reviews;
     }
 }

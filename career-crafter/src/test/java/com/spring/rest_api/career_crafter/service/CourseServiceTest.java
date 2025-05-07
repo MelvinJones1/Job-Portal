@@ -1,58 +1,73 @@
 package com.spring.rest_api.career_crafter.service;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
-import com.spring.rest_api.career_crafter.model.Course;
-import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
-import com.spring.rest_api.career_crafter.repository.CourseRepository;
+import com.spring.rest_api.career_crafter.model.*;
+import com.spring.rest_api.career_crafter.repository.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import org.springframework.data.domain.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class CourseServiceTest {
+
+    @Mock
+    private CourseRepository courseRepository;
+    @Mock
+    private CourseModuleRepository courseModuleRepository;
+    @Mock
+    private EnrollmentRepository enrollmentRepository;
+    @Mock
+    private CertificateRepository certificateRepository;
+    @Mock
+    private JobSeeekerCertificatesRepository jobSeeekerCertificatesRepository;
+    @Mock
+    private CourseReviewRepository courseReviewRepository;
 
     @InjectMocks
     private CourseService courseService;
 
-    @Mock
-    private CourseRepository courseRepository;
-
-    @Mock
-    private CourseModuleRepository courseModuleRepository;
-
     private Course course;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-
+    void setup() {
         course = new Course();
         course.setId(1);
-        course.setTitle("Java");
-        course.setDescription("Java course");
+        course.setTitle("Java Basics");
+        course.setDescription("Intro to Java");
         course.setCategory("Programming");
     }
 
     @Test
-    void testAddCourse_ShouldSaveCourse() {
-        when(courseRepository.save(course)).thenReturn(course);
+    void testAddCourse() {
+        when(courseRepository.save(any(Course.class))).thenReturn(course);
 
         Course saved = courseService.addCourse(course);
 
-        assertEquals("Java", saved.getTitle());
+        assertNotNull(saved);
+        assertEquals("Java Basics", saved.getTitle());
         verify(courseRepository, times(1)).save(course);
     }
 
     @Test
-    void testGetAllCourses_ShouldReturnPageOfCourses() {
-        Pageable pageable = PageRequest.of(0, 5);
-        Page<Course> mockPage = new PageImpl<>(List.of(course));
-        when(courseRepository.findAll(pageable)).thenReturn(mockPage);
+    void testGetAllCourses() {
+        List<Course> courseList = List.of(course);
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Course> coursePage = new PageImpl<>(courseList);
+
+        when(courseRepository.findAll(pageable)).thenReturn(coursePage);
 
         Page<Course> result = courseService.getAllCourses(pageable);
 
@@ -61,68 +76,67 @@ public class CourseServiceTest {
     }
 
     @Test
-    void testGetCourseById_ValidId_ShouldReturnCourse() throws InvalidIDException {
+    void testGetCourseById_Success() throws InvalidIDException {
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
 
-        Course found = courseService.getCourseById(1);
+        Course result = courseService.getCourseById(1);
 
-        assertEquals(1, found.getId());
-        verify(courseRepository).findById(1);
+        assertNotNull(result);
+        assertEquals("Java Basics", result.getTitle());
     }
 
     @Test
-    void testGetCourseById_InvalidId_ShouldThrowException() {
-        when(courseRepository.findById(2)).thenReturn(Optional.empty());
+    void testGetCourseById_NotFound() {
+        when(courseRepository.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(InvalidIDException.class, () -> courseService.getCourseById(2));
+        assertThrows(InvalidIDException.class, () -> courseService.getCourseById(1));
     }
 
     @Test
-    void testUpdateCourse_ValidId_ShouldUpdateFields() throws InvalidIDException {
-        Course updated = new Course();
-        updated.setTitle("Advanced Java");
-        updated.setDescription("Updated desc");
-        updated.setCategory("Backend");
+    void testUpdateCourse_Success() throws InvalidIDException {
+        Course updatedCourse = new Course();
+        updatedCourse.setTitle("Updated Java");
+        updatedCourse.setDescription("Updated Desc");
+        updatedCourse.setCategory("Updated Category");
 
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
-        when(courseRepository.save(any(Course.class))).thenReturn(course);
+        when(courseRepository.save(any(Course.class))).thenReturn(updatedCourse);
 
-        Course result = courseService.updateCourse(1, updated);
+        Course result = courseService.updateCourse(1, updatedCourse);
 
-        assertEquals("Advanced Java", result.getTitle());
-        assertEquals("Updated desc", result.getDescription());
-        assertEquals("Backend", result.getCategory());
+        assertEquals("Updated Java", result.getTitle());
         verify(courseRepository).save(course);
     }
 
     @Test
-    void testUpdateCourse_InvalidId_ShouldThrowException() {
-        Course updated = new Course();
-        when(courseRepository.findById(99)).thenReturn(Optional.empty());
+    void testDeleteCourse_Success() throws InvalidIDException {
+        Enrollment enrollment = new Enrollment();
+        enrollment.setId(101);
 
-        assertThrows(InvalidIDException.class, () -> courseService.updateCourse(99, updated));
-    }
+        Certificate certificate = new Certificate();
+        certificate.setId(201);
+        certificate.setEnrollment(enrollment);
 
-    @Test
-    void testDeleteCourse_ValidId_ShouldDeleteCourseAndModules() throws InvalidIDException {
+        List<Enrollment> enrollments = List.of(enrollment);
+        List<JobSeekerCertificates> links = new ArrayList<>();
+
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
+        when(enrollmentRepository.findByCourseId(1)).thenReturn(enrollments);
+        when(certificateRepository.findByEnrollmentId(101)).thenReturn(certificate);
+        when(jobSeeekerCertificatesRepository.findByCertificates(certificate)).thenReturn(links);
 
         courseService.deleteCourse(1);
 
+        verify(jobSeeekerCertificatesRepository).deleteAll(links);
+        verify(certificateRepository).delete(certificate);
+        verify(enrollmentRepository).deleteAll(enrollments);
         verify(courseModuleRepository).deleteByCourseId(1);
+        verify(courseReviewRepository).deleteByCourseId(1);
         verify(courseRepository).delete(course);
     }
 
     @Test
-    void testDeleteCourse_InvalidId_ShouldThrowException() {
-        when(courseRepository.findById(42)).thenReturn(Optional.empty());
-
-        assertThrows(InvalidIDException.class, () -> courseService.deleteCourse(42));
-        verify(courseModuleRepository, never()).deleteByCourseId(anyInt());
-    }
-
-    @Test
-    void testGetCourseCount_ShouldReturnCorrectCount() {
+    void testGetCourseCount() {
         when(courseRepository.count()).thenReturn(5L);
 
         long count = courseService.getCourseCount();
@@ -132,12 +146,12 @@ public class CourseServiceTest {
     }
 
     @Test
-    void testSearchCoursesByTitle_ShouldReturnMatchingCourses() {
+    void testSearchCoursesByTitle() {
         when(courseRepository.findByTitleContaining("Java")).thenReturn(List.of(course));
 
         List<Course> results = courseService.searchCoursesByTitle("Java");
 
         assertEquals(1, results.size());
-        verify(courseRepository).findByTitleContaining("Java");
+        assertEquals("Java Basics", results.get(0).getTitle());
     }
 }

@@ -3,6 +3,7 @@ package com.spring.rest_api.career_crafter.service;
 import java.time.LocalDate;
 
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +47,7 @@ public class HrService {
 	@Autowired
 	private InterviewService interviewService;
 
-	private AuthRepository authRepository;
-
-	private CompanyRepository companyRepository;
-
-
-    HrService(CompanyRepository companyRepository, AuthRepository authRepository) {
-        this.companyRepository = companyRepository;
-        this.authRepository = authRepository;
+	HrService(CompanyRepository companyRepository, AuthRepository authRepository) {
     }
 	
 

@@ -38,7 +38,7 @@ public class CourseController {
     public Course addCourse(@RequestBody Course course) {
         logger.info("Adding a new course.");
         Course savedCourse = courseService.addCourse(course); // Save the course
-        logger.info("Added the course successfully: {}", savedCourse);
+        logger.info("Added the course successfully", savedCourse);
         return savedCourse;
     }
 
@@ -68,7 +68,7 @@ public class CourseController {
      */
     @GetMapping("/get/{courseId}")
     public Course getCourseById(@PathVariable int courseId) throws InvalidIDException {
-        logger.info("Fetching course with ID: {}", courseId);
+        logger.info("Fetching course with ID", courseId);
         return courseService.getCourseById(courseId); // Throws exception if not found
     }
 
@@ -82,9 +82,9 @@ public class CourseController {
      */
     @PutMapping("/update/{courseId}")
     public Course updateCourse(@PathVariable int courseId, @RequestBody Course updateCourse) throws InvalidIDException {
-        logger.info("Updating course with ID: {}", courseId);
+        logger.info("Updating course with ID", courseId);
         Course updatedCourse = courseService.updateCourse(courseId, updateCourse);
-        logger.info("Updated course successfully: {}", updatedCourse);
+        logger.info("Updated course successfully", updatedCourse);
         return updatedCourse;
     }
 
@@ -98,9 +98,9 @@ public class CourseController {
      */
     @DeleteMapping("/delete/{courseId}")
     public void deleteCourse(@PathVariable int courseId) throws InvalidIDException {
-        logger.info("Deleting course with ID: {}", courseId);
+        logger.info("Deleting course with ID", courseId);
         courseService.deleteCourse(courseId); // Delegate deletion to service
-        logger.info("Deleted course with ID: {}", courseId);
+        logger.info("Deleted course with ID", courseId);
     }
 
     /**
@@ -113,16 +113,14 @@ public class CourseController {
     }
 
     /**
-     * GET /courses/search?title=something
-     * Search for courses by title (partial match)
-     * Steps:
+ 
      * 1. Accept a `title` query parameter.
      * 2. Use service to find all matching course titles.
      * 3. Return result list.
      */
-    @GetMapping("/courses/search")
-    public List<Course> searchCourses(@RequestParam String title) {
-    	logger.info("searching course by"+title);
-        return courseService.searchCoursesByTitle(title); // Partial match search
-    }
+	    @GetMapping("/courses/search")
+	    public List<Course> searchCourses(@RequestParam String title) {
+	    	logger.info("searching course by"+title);
+	        return courseService.searchCoursesByTitle(title); // Partial match search
+	    }
 }

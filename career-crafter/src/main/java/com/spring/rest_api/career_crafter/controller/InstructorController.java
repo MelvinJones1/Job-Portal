@@ -1,6 +1,8 @@
 
 package com.spring.rest_api.career_crafter.controller;
 
+import java.io.FileNotFoundException;
+
 import java.io.IOException;
 
 import java.net.MalformedURLException;
@@ -15,8 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,25 +54,25 @@ public class InstructorController {
 
     @GetMapping("/getProfile")
     public Instructor getInstructorProfile(Principal principal) {
-        logger.info("Fetching the instructor profile for: {}", principal.getName());
+        logger.info("Fetching the instructor profile for", principal.getName());
         String username = principal.getName();
         return instructorService.getInstructorProfile(username);
     }
 
     @PostMapping("/add")
     public Instructor addInstructor(@RequestBody Instructor instructor) throws InvalidUsernameException {
-        logger.info("Adding a new instructor: {}", instructor.getFirstName());
+        logger.info("Adding a new instructor", instructor.getFirstName());
         return instructorService.addInstructor(instructor);
     }
     @PutMapping("/update/{insId}")
     public Instructor updateInstructorProfile(@PathVariable int insId, @RequestBody Instructor updatedInstructor) throws InvalidIDException {
-        logger.info("Updating the instructor profile with ID: {}", insId);
+        logger.info("Updating the instructor profile with ID", insId);
         return instructorService.updateInstructorProfile(insId, updatedInstructor);
     }
 
     @DeleteMapping("/delete/profile/{insId}")
     public void deleteInstructorById(@PathVariable int insId) throws InvalidIDException {
-        logger.info("Deleting the instructor profile with ID: {}", insId);
+        logger.info("Deleting the instructor profile with ", insId);
         Instructor instructor = instructorService.getSingleInstructor(insId);
         instructorService.deleteInstructorById(instructor);
         logger.info("Instructor profile deleted successfully.");
@@ -88,36 +89,25 @@ public class InstructorController {
 
         return response;
     }
-    @GetMapping("/uploads/{filename:.+}")
-    public ResponseEntity<Resource> serveImage(@PathVariable String filename) throws MalformedURLException {
+    @GetMapping("/uploads/{filename}")
+    public Resource serveImage(@PathVariable String filename) throws MalformedURLException, FileNotFoundException {
         // Define the upload directory
         Path imagePath = Paths.get("C:/Users/ragip/OneDrive/Documents/JAVA FULL STACK HEX/Job-Portal/uploads", filename);
 
         // Check if the image exists
         if (!Files.exists(imagePath)) {
-            return ResponseEntity.notFound().build();
+            throw new FileNotFoundException("File not found: " + filename);
         }
 
         // Create a Resource object to return the file
-        Resource resource = new UrlResource(imagePath.toUri());
-
-        // Set the content type (optional, you can set it based on the file)
-        String contentType = "application/octet-stream"; // Default content type
-        try {
-            contentType = Files.probeContentType(imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .body(resource);
+        return new UrlResource(imagePath.toUri());
     }
+
     
 
     @PostMapping("/image/upload/{Insid}")
     public Instructor uploadImage(@PathVariable int Insid, @RequestParam MultipartFile file) throws IOException, InvalidIDException {
-        logger.info("Uploading image for instructor with ID: {}", Insid);
+        logger.info("Uploading image for instructor with id", Insid);
 
         // Call the service to handle the upload
         return instructorService.uploadImage(file, Insid);

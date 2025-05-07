@@ -1,10 +1,11 @@
 package com.spring.rest_api.career_crafter.service;
 
 import com.spring.rest_api.career_crafter.exception.InvalidIDException;
+
 import com.spring.rest_api.career_crafter.model.Certificate;
 import com.spring.rest_api.career_crafter.model.Course;
 import com.spring.rest_api.career_crafter.model.Enrollment;
-import com.spring.rest_api.career_crafter.model.JobSeeker;
+
 import com.spring.rest_api.career_crafter.model.JobSeekerCertificates;
 import com.spring.rest_api.career_crafter.repository.CertificateRepository;
 import com.spring.rest_api.career_crafter.repository.CourseModuleRepository;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class CourseService {

@@ -33,22 +33,23 @@ import org.springframework.data.domain.PageRequest;
 		    public Page<Enrollment> getAllEnrollments(
 		            @RequestParam int page,
 		            @RequestParam int size) {
+		    	 logger.info("Fetching enrollments by pagination ");
 		        
-		        Pageable pageable = PageRequest.of(page - 1, size);  // Page is 1-based, adjust for 0-based
+		        Pageable pageable = PageRequest.of(page - 1, size); 
 		        return enrollmentService.getAllEnrollmentsPaginated(pageable);
 		    }
 		
 		    // Get enrollments by category
 		    @GetMapping("/getByCategory/{categoryName}")
 		    public List<Enrollment> getEnrollmentsByCategory(@PathVariable String categoryName) {
-		        logger.info("Fetching enrollments by category: {}", categoryName);
+		        logger.info("Fetching enrollments by category ", categoryName);
 		        return enrollmentService.getEnrollmentsByCategory(categoryName);
-		    }
+		    }  
 		
 		    // Get enrollments by job seeker name
 		    @GetMapping("/getByJobseeker/{name}")
 		    public List<Enrollment> getEnrollmentsByJobSeeker(@PathVariable String name) {
-		        logger.info("Fetching enrollments for job seeker name: {}", name);
+		        logger.info("Fetching enrollments for job seeker name", name);
 		        return enrollmentService.getEnrollmentsByJobSeekerName(name);
 		    }
 		
